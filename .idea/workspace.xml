@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +135,17 @@
       <workItem from="1566811995375" duration="814000" />
       <workItem from="1566819144084" duration="15000" />
       <workItem from="1566819187123" duration="22000" />
+      <workItem from="1566819210582" duration="195000" />
+      <workItem from="1566819962915" duration="72000" />
     </task>
+    <task id="LOCAL-00001" summary="MAJ">
+      <created>1566819286906</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1566819286906</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,5 +163,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="MAJ" />
+    <option name="LAST_COMMIT_MESSAGE" value="MAJ" />
   </component>
 </project>
