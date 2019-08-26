@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="">
+    <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="log-logs">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/entrypoints.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/entrypoints.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/runtime.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/runtime.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/vendors~app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/vendors~app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/build/vendors~app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/build/vendors~app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/test.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -135,17 +144,8 @@
       <workItem from="1566811995375" duration="814000" />
       <workItem from="1566819144084" duration="15000" />
       <workItem from="1566819187123" duration="22000" />
-      <workItem from="1566819210582" duration="195000" />
-      <workItem from="1566819962915" duration="72000" />
+      <workItem from="1566820034917" duration="1043000" />
     </task>
-    <task id="LOCAL-00001" summary="MAJ">
-      <created>1566819286906</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1566819286906</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -165,7 +165,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="MAJ" />
-    <option name="LAST_COMMIT_MESSAGE" value="MAJ" />
+    <MESSAGE value="log-logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="log-logs" />
   </component>
 </project>
