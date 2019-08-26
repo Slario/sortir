@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/log/dev.log" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,6 +132,8 @@
       <workItem from="1566548043420" duration="5087000" />
       <workItem from="1566810338341" duration="645000" />
       <workItem from="1566811995375" duration="814000" />
+      <workItem from="1566819144084" duration="15000" />
+      <workItem from="1566819187123" duration="22000" />
     </task>
     <servers />
   </component>
