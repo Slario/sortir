@@ -2,210 +2,218 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as UserBase;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User extends UserBase
+class User implements UserInterface
 {
-
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $prenom;
-
-    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $tel;
+    private $id;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $actif;
+    private $email;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur")
+     * @Assert\NotBlank(message="Le champ email ne peut pas être vide !")
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $orgaSortie;
+
+    private $pseudo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Inscription", inversedBy="participant")
+     * @Assert\NotBlank(message="Le champ pseudo ne peut pas être vide !")
+     * @return mixed
      */
-    private $inscris;
+
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="json")
      */
-    private $site;
+    private $roles = [];
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Inscription", mappedBy="participant")
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $inscriptions;
+    private $password;
+
+
+    /**
+     * @var string
+     * @Assert\NotBlank(message="Le champ mot de passe ne peut pas être vide !")
+     */
+    private $plainPassword;
+
+    /**
+     * @var string
+     *
+     * @SecurityAssert\UserPassword(
+     *     message = "USER_OLD_PASSWORD_INVALID_DATA",
+     *     groups={"password"}
+     * )
+     */
+    protected $oldPassword;
 
 
     public function __construct()
     {
-        parent::__construct();
-        $this->orgaSortie = new ArrayCollection();
-        $this->inscriptions = new ArrayCollection();
+        // Roles des utilisateurs
+        $this->roles = ['ROLE_USER'];
 
-        // your own logic
     }
 
-    public function getNom(): ?string
+
+
+
+    public function getPseudo()
     {
-        return $this->nom;
+        return $this->pseudo;
     }
 
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
 
-        return $this;
+
+    /**
+     * @param mixed $pseudo
+     */
+    public function setPseudo($pseudo): void
+    {
+        $this->pseudo = $pseudo;
     }
 
-    public function getPrenom(): ?string
+    public function getId(): ?int
     {
-        return $this->prenom;
+        return $this->id;
     }
 
-    public function setPrenom(string $prenom): self
+    public function getEmail(): ?string
     {
-        $this->prenom = $prenom;
-
-        return $this;
+        return $this->email;
     }
 
-    public function getTel(): ?int
+    public function setEmail(string $email): self
     {
-        return $this->tel;
-    }
-
-    public function setTel(int $tel): self
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
-
-    public function getActif(): ?bool
-    {
-        return $this->actif;
-    }
-
-    public function setActif(bool $actif): self
-    {
-        $this->actif = $actif;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * @return Collection|Sortie[]
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
      */
-    public function getOrgaSortie(): Collection
+
+    public function getUsername(): string
     {
-        return $this->orgaSortie;
+        return (string) $this->email;
     }
 
-    public function addOrgaSortie(Sortie $orgaSortie): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        if (!$this->orgaSortie->contains($orgaSortie)) {
-            $this->orgaSortie[] = $orgaSortie;
-            $orgaSortie->setOrganisateur($this);
-        }
-
-        return $this;
+        return $roles = $this->roles;
     }
 
-    public function removeOrgaSortie(Sortie $orgaSortie): self
+    public function setRoles(array $roles): self
     {
-        if ($this->orgaSortie->contains($orgaSortie)) {
-            $this->orgaSortie->removeElement($orgaSortie);
-            // set the owning side to null (unless already changed)
-            if ($orgaSortie->getOrganisateur() === $this) {
-                $orgaSortie->setOrganisateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getInscris(): ?Inscription
-    {
-        return $this->inscris;
-    }
-
-    public function setInscris(?Inscription $inscris): self
-    {
-        $this->inscris = $inscris;
-
-        return $this;
-    }
-
-    public function getSite(): ?Site
-    {
-        return $this->site;
-    }
-
-    public function setSite(?Site $site): self
-    {
-        $this->site = $site;
+        $this->roles = $roles;
 
         return $this;
     }
 
     /**
-     * @return Collection|Inscription[]
+     * @see UserInterface
      */
-    public function getInscriptions(): Collection
+    public function getPassword(): string
     {
-        return $this->inscriptions;
+        return (string) $this->password;
     }
 
-    public function addInscription(Inscription $inscription): self
+    public function setPassword(string $password): self
     {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setParticipant($this);
-        }
+        $this->password = $password;
 
         return $this;
     }
 
-    public function removeInscription(Inscription $inscription): self
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
     {
-        if ($this->inscriptions->contains($inscription)) {
-            $this->inscriptions->removeElement($inscription);
-            // set the owning side to null (unless already changed)
-            if ($inscription->getParticipant() === $this) {
-                $inscription->setParticipant(null);
-            }
-        }
-
-        return $this;
+        return null;
     }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        $this->plainPassword = null;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+    /**
+     * @param string $plainPassword
+     */
+    /**
+     * @param string|null $plainPassword
+     */
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+    /**
+     * @return string
+     */
+    public function getOldPassword(): string
+    {
+        return $this->oldPassword;
+    }
+
+    /**
+     * @param string $oldPassword
+     */
+    public function setOldPassword(string $oldPassword): void
+    {
+        $this->oldPassword = $oldPassword;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
