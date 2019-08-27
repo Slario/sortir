@@ -67,11 +67,32 @@ class User implements UserInterface
      */
     protected $oldPassword;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="binary")
+     */
+    private $actif;
+
 
     public function __construct()
     {
         // Roles des utilisateurs
         $this->roles = ['ROLE_USER'];
+        $this ->actif=1;
 
     }
 
@@ -200,6 +221,54 @@ class User implements UserInterface
     public function setOldPassword(string $oldPassword): void
     {
         $this->oldPassword = $oldPassword;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?int
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(int $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getActif()
+    {
+        return $this->actif;
+    }
+
+    public function setActif($actif): self
+    {
+        $this->actif = $actif;
+
+        return $this;
     }
 
 
