@@ -4,7 +4,13 @@ security:
             algorithm: argon2i
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
+
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
@@ -15,6 +21,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+
             logout_on_user_change: true
             anonymous: true
 
