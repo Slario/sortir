@@ -39,19 +39,6 @@ class Lieu
      */
     private $longitude;
 
-    /**
-     * Many Lieus have one Villes. This is the owning side.
-     * @ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieus")
-     * @JoinColumn(name="ville_id", referencedColumnName="id")
-     */
-    private $ville;
-
-    /**
-     * UIn lieu peut avoir plusieurs sorties
-     * @OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu")
-     */
-    private $sorties;
-
 
 
     public function getId(): ?int
@@ -107,15 +94,4 @@ class Lieu
         return $this;
     }
 
-    public function getIdVille(): ?int
-    {
-        return $this->idVille;
-    }
-
-    public function setIdVille(int $idVille): self
-    {
-        $this->idVille = $idVille;
-
-        return $this;
-    }
 }

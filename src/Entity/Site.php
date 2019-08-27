@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SiteRepository")
@@ -20,6 +21,7 @@ class Site
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
+
 
     public function getId(): ?int
     {

@@ -23,18 +23,13 @@ class Etat
      */
     private $libelle;
 
-    /**
-     * un état peut avoir plusieurs sorties
-     * @OneToMany(targetEntity="App\Entity\Sortie", mappedBy="etat")
-     */
-    private $sorties;
 
     /**
      * Etat constructor.
      */
     public function __construct()
     {
-        $this->sorties = new ArrayCollection();
+
 
     }
 

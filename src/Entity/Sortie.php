@@ -64,21 +64,6 @@ class Sortie
     private $organisateur;
 
 
-    /**
-     * Plusieurs sorties peuvent avoir un etat
-     * @ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
-     * @JoinColumn(name="etat_id", referencedColumnName="id")
-     */
-    private $etat;
-
-    /**
-     * Plusieurs sorties ont un lieu
-     * @ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sorties")
-     * @JoinColumn(name="sortie_id", referencedColumnName="id")
-     */
-    private $lieu;
-
-
     public function getId(): ?int
     {
         return $this->id;
