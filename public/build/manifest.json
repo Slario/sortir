@@ -4,5 +4,8 @@
   "build/runtime.js": "/build/runtime.js",
   "build/vendors~app.css": "/build/vendors~app.css",
   "build/vendors~app.js": "/build/vendors~app.js",
-  "build/images/loading.gif": "/build/images/loading.13630905.gif"
+  "build/images/cancel.svg": "/build/images/cancel.svg",
+  "build/images/loading.gif": "/build/images/loading.13630905.gif",
+  "build/images/user.svg": "/build/images/user.svg",
+  "build/images/wine-glasses.svg": "/build/images/wine-glasses.svg"
 }
