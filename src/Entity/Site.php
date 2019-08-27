@@ -21,6 +21,7 @@ class Site
      */
     private $nom;
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,4 +38,5 @@ class Site
 
         return $this;
     }
+
 }
