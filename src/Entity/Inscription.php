@@ -37,8 +37,6 @@ class Inscription
 
     public function __construct()
     {
-        $this->participant = new ArrayCollection();
-        $this->sortie = new ArrayCollection();
     }
 
 
