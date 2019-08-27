@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="MAJ">
+    <list default="true" id="89d07f7c-1525-49e3-85c9-41682427829c" name="Default Changelist" comment="modif gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -104,14 +104,8 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/images" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\wamp64\www\sortir\assets\images" />
-      <recent name="C:\wamp64\www\sortir\src\Controller" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -141,8 +135,10 @@
       <workItem from="1566819144084" duration="15000" />
       <workItem from="1566819187123" duration="22000" />
       <workItem from="1566819210582" duration="195000" />
-      <workItem from="1566819962915" duration="72000" />
-      <workItem from="1566886705900" duration="211000" />
+      <workItem from="1566819962915" duration="317000" />
+      <workItem from="1566820364611" duration="1054000" />
+      <workItem from="1566827352546" duration="796000" />
+      <workItem from="1566886444779" duration="2588000" />
     </task>
     <task id="LOCAL-00001" summary="MAJ">
       <created>1566819286906</created>
@@ -151,25 +147,42 @@
       <option name="project" value="LOCAL" />
       <updated>1566819286906</updated>
     </task>
-    <task id="LOCAL-00002" summary="MAJ">
-      <created>1566820539122</created>
+    <task id="LOCAL-00002" summary="base html MAJ">
+      <created>1566820124245</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1566820539122</updated>
+      <updated>1566820124245</updated>
     </task>
-    <task id="LOCAL-00003" summary="Design base.twig">
-      <created>1566886822230</created>
+    <task id="LOCAL-00003" summary="modif gitignore">
+      <created>1566820411906</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1566886822230</updated>
+      <updated>1566820411906</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modif gitignore">
+      <created>1566820868214</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1566820868214</updated>
+    </task>
+    <task id="LOCAL-00005" summary="modif env pour BDD">
+      <created>1566886674813</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1566886674813</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -186,7 +199,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="MAJ" />
-    <MESSAGE value="Design base.twig" />
-    <option name="LAST_COMMIT_MESSAGE" value="Design base.twig" />
+    <MESSAGE value="base html MAJ" />
+    <MESSAGE value="modif gitignore" />
+    <MESSAGE value="modif env pour BDD" />
+    <option name="LAST_COMMIT_MESSAGE" value="modif env pour BDD" />
   </component>
 </project>
