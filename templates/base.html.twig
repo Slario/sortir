@@ -35,15 +35,17 @@
                     <li class="nav-item">
                         <a class="nav-link nav-link-color" href="#">Accueil</a>
                     </li>
+                    {% if app.User %}
                     <li class="nav-item utilisateur">
                         <img alt="logo" class="avatar" src="{{ asset('build/images/user.svg') }}">
                         <a class="nav-link nav-link-color scroll" href="#">
-                            Bonjour <strong>"Prénom"</strong> !
+                            Bonjour <strong>{{ app.user.pseudo }} !</strong> !
                         </a>
-                        <a class="nav-link nav-link-color scroll" href="#">
+                        <a class="nav-link nav-link-color scroll" href="{{ path('app_logout') }}"> Se déconnecter
                             <img alt="logout" class="logout"  src="{{ asset('build/images/cancel.svg') }}">
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
