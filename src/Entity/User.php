@@ -28,7 +28,7 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank(message="Le champ email ne peut pas être vide !")
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180, unique=true, nullable=false)
      */
 
     private $pseudo;
@@ -68,17 +68,17 @@ class User implements UserInterface
     protected $oldPassword;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      */
     private $telephone;
 
