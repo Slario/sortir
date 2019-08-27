@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -44,6 +45,12 @@ class Lieu
      * @JoinColumn(name="ville_id", referencedColumnName="id")
      */
     private $ville;
+
+    /**
+     * UIn lieu peut avoir plusieurs sorties
+     * @OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu")
+     */
+    private $sorties;
 
 
 
