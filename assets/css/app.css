@@ -4,7 +4,7 @@ body{
     background-color: #7d5fff;
 }
 
-
+h1{ text-align: center !important;}
 /* ------------------ Header ------------------ */
 #containerNav{
     background-color: #353b48;
