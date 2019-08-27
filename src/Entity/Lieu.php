@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -37,13 +38,6 @@ class Lieu
      * @ORM\Column(type="integer")
      */
     private $longitude;
-
-    /**
-     * Many Lieus have one Villes. This is the owning side.
-     * @ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieus")
-     * @JoinColumn(name="ville_id", referencedColumnName="id")
-     */
-    private $ville;
 
 
 
@@ -100,15 +94,4 @@ class Lieu
         return $this;
     }
 
-    public function getIdVille(): ?int
-    {
-        return $this->idVille;
-    }
-
-    public function setIdVille(int $idVille): self
-    {
-        $this->idVille = $idVille;
-
-        return $this;
-    }
 }
