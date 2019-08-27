@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends Controller
 {
     /**
-     * @Route("", name="home", methods={"GET"})
+     * @Route("/", name="home", methods={"GET"})
      */
     public function home(EntityManagerInterface $entityManager)
     {
