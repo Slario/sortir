@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -61,15 +63,14 @@ class Sortie
      */
     private $organisateur;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $lieuNoLieu;
 
     /**
-     * @ORM\Column(type="integer")
+     * Plusieurs sorties peuvent avoir un etat
+     * @ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
+     * @JoinColumn(name="etat_id", referencedColumnName="id")
      */
-    private $etatNoEtat;
+    private $etat;
+
 
     public function getId(): ?int
     {
@@ -184,27 +185,5 @@ class Sortie
         return $this;
     }
 
-    public function getLieuNoLieu(): ?int
-    {
-        return $this->lieuNoLieu;
-    }
 
-    public function setLieuNoLieu(int $lieuNoLieu): self
-    {
-        $this->lieuNoLieu = $lieuNoLieu;
-
-        return $this;
-    }
-
-    public function getEtatNoEtat(): ?int
-    {
-        return $this->etatNoEtat;
-    }
-
-    public function setEtatNoEtat(int $etatNoEtat): self
-    {
-        $this->etatNoEtat = $etatNoEtat;
-
-        return $this;
-    }
 }
