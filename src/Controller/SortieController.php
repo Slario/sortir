@@ -12,12 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/sortie")
+ * @Route("")
  */
 class SortieController extends Controller
 {
     /**
-     * @Route("/", name="sortie_index", methods={"GET"})
+     * @Route("", name="sortie_index", methods={"GET"})
      */
     public function index(SortieRepository $sortieRepository): Response
     {
