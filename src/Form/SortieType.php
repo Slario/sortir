@@ -25,35 +25,43 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom',TextType::class,[
-                'label'=>'Nom de la sortie'
+                'label'=>'Nom de la sortie',
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('dateDebut',DateType::class,[
                 'label'=>'Date et heure de sortie',
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('dateCloture',DateType::class,[
-                'label'=>'Date limite d\'inscription'
+                'label'=>'Date limite d\'inscription',
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('nbInscriptionsMax',NumberType::class,[
-                'label'=>'Nombre de places'
+                'label'=>'Nombre de places',
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('duree',DateType::class,[
-                'label'=>'Durée'
+                'label'=>'Durée',
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('descriptionInfos',TextareaType::class,[
                 'label'=>'Descriptionet infos',
                 'trim'=>true,
+                'attr'=> array('class'=>'form-control')
             ])
 
             ->add('organisateur',EntityType::class,[
                 'class'=>User::class,
                 'label'=>'Organisateur',
                 'trim'=>true,
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('site',EntityType::class,[
                 'class'=>Site::class,
                 'choice_label'=>'nom',
                 'label'=>'Organisme',
                 'trim'=>true,
+                'attr'=> array('class'=>'form-control')
             ])
 
             ->add('lieu',EntityType::class,[
@@ -61,9 +69,10 @@ class SortieType extends AbstractType
                 'choice_label'=>'nomLieu',
                 'label'=>'Lieu',
                 'trim'=>true,
+                'attr'=> array('class'=>'form-control')
             ])
             ->add('submit', SubmitType::class, [
-
+                'attr'=> array('class'=>'bouton'),
                 "label" => "Enregistrer",]);
     }
 
