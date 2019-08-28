@@ -1,4 +1,145 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container">
+    <div class="form-group ">
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-6">
+            {{ form_label(form.nom)}}
+            {{form_widget(form.nom)}}
+            {{ form_errors(form.nom) }}
+
+
+            {{ form_label(form.dateDebut)}}
+            {{form_widget(form.dateDebut)}}
+            {{ form_errors(form.dateDebut) }}
+
+
+            {{ form_label(form.dateCloture)}}
+            {{form_widget(form.dateCloture)}}
+            {{ form_errors(form.dateCloture) }}
+
+
+            {{ form_label(form.nbInscriptionsMax)}}
+            {{form_widget(form.nbInscriptionsMax)}}
+            {{ form_errors(form.nbInscriptionsMax) }}
+
+
+            {{ form_label(form.duree)}}
+            {{form_widget(form.duree)}}
+            {{ form_errors(form.duree) }}
+
+
+            {{ form_label(form.descriptionInfos)}}
+            {{form_widget(form.descriptionInfos)}}
+            {{ form_errors(form.descriptionInfos) }}
+            </div>
+            <div class="col-6">
+            {{ form_label(form.organisateur)}}
+            {{form_widget(form.organisateur)}}
+            {{ form_errors(form.organisateur) }}
+
+
+            {{ form_label(form.site)}}
+            {{form_widget(form.site)}}
+            {{ form_errors(form.site) }}
+
+            {{ form_label(form.lieu)}}
+                <div class="row">
+                    <div class="col-6">
+            {{form_widget(form.lieu)}}
+            {{ form_errors(form.lieu) }}
+                </div>
+                    <div class="col-6">
+                        <button type="button" data-toggle="modal" data-target="#ModalAjoutLieu" class="bouton">+</button></a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+
+        <br>
+        <div class="row">
+            <div class="col-4">
+        {{ form_row(form.submit) }}
+            </div>
+            <div class="col-4">
+        <button class="bouton">{{ button_label|default('Publier') }}</button>
+            </div>
+            <div class="col-4">
+                <a href="{{ path('sortie_index') }}"><button class="bouton">Annuler</button></a>
+            </div>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+
+    </div>
+</div>
+    <div class="modal fade" id="ModalAjoutLieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un lieu</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {{ form_end(form) }}
+
+    <script>
+        $('#ModalAjoutLieu').on('shown.bs.modal', function () {
+            var modal = $(this);
+            $.ajax('{{ path('lieu_new') }}', {
+                success: function(data) {
+                    modal.find('.modal-body').html(data);
+                }
+            });
+        });
+
+        $(document).on('submit', 'form', function(e){
+            // il est impératif de commencer avec cette méthode qui va empêcher le navigateur d'envoyer le formulaire lui-même
+            e.preventDefault();
+
+            $form = $(e.target);
+            modal = $('#ModalAjoutLieu');
+
+            var title = $('#article_title').val();
+
+            var $submitButton = $form.find(':submit');
+            $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
+            $submitButton.prop('disabled', true);
+
+            // ajaxSubmit du plugin ajaxForm nécessaire pour l'upload de fichier
+            $form.ajaxSubmit({
+                type: 'post',
+                success: function(data) {
+                    if (data == 'ok') {
+                        $('ul').append('<li>' + title + '</li>');
+                        modal.modal('toggle');
+                    } else {
+                        modal.find('.modal-body').html(data);
+                    }
+                },
+                error: function(jqXHR, status, error) {
+                    $submitButton.html(button.data('label'));
+                    $submitButton.prop('disabled', false);
+                }
+            });
+        });
+    </script>

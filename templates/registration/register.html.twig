@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="container-fluid">
-        <h1>Inscription</h1>
-
+        <h2>Inscription</h2>
+<div id="inscription">
         {{ form_start(registrationForm,{'method': 'post', 'attr': {'class': ''}}) }}
 
 
@@ -40,8 +40,10 @@
             </div>
 
 
-            {{ form_row(registrationForm.submit, {'attr': {'class':'btn btn-outline-success '}}) }}
+            {{ form_row(registrationForm.submit, {'attr': {'class':'bouton'}}) }}
 
+
+</div>
 
             {% for label, messages in app.flashes %}
                 {% for message in messages %}

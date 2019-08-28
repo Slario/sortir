@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -36,9 +38,9 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
@@ -79,27 +81,62 @@ class User implements UserInterface
     private $telephone;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $villeRattachement;
+
+    /**
+     * @var string
+     * @ORM\Column(name="img", type="string", nullable=true)
+     * @Assert\File(
+     *     mimeTypes={"image/png" ,"image/jpg","image/jpeg"},
+     *     mimeTypesMessage = "Svp inserer une image valide (png,jpg,jpeg)")
+     */
+    private $img;
+
+    /**
      * @ORM\Column(type="binary")
+     *
      */
     private $actif;
 
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
+     * @JoinColumn(name="site_id", referencedColumnName="id")
+     */
+    private $site;
 
     public function __construct()
     {
         // Roles des utilisateurs
         $this->roles = ['ROLE_USER'];
-        $this ->actif=1;
+        $this->actif = 1;
 
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
 
+    /**
+     * @param mixed $site
+     */
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
 
 
     public function getPseudo()
     {
         return $this->pseudo;
     }
-
 
 
     /**
@@ -135,7 +172,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -158,7 +195,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -203,6 +240,7 @@ class User implements UserInterface
     {
         $this->plainPassword = $plainPassword;
     }
+
     /**
      * @return string
      */
@@ -267,18 +305,45 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getVilleRattachement()
+    {
+        return $this->villeRattachement;
+    }
+
+    /**
+     * @param mixed $villeRattachement
+     */
+    public function setVilleRattachement($villeRattachement): void
+    {
+        $this->villeRattachement = $villeRattachement;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param string $img
+     */
+    public function setImg(string $img): void
+    {
+        $this->img = $img;
+    }
 
 
+    public function __toString(): ?string
+    {
 
+        $sb = $this->getPrenom() . " " . $this->getNom();
 
+        return $sb;
 
-
-
-
-
-
-
-
-
+    }
 }
-
