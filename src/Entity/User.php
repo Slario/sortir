@@ -293,14 +293,13 @@ class User implements UserInterface
         return $this;
     }
 
+
     public function __toString(): ?string
     {
 
         $sb = $this->getPrenom()." ".$this->getNom();
 
         return $sb;
-    }
-
 
 }
 
