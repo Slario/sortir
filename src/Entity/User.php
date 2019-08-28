@@ -81,6 +81,20 @@ class User implements UserInterface
     private $telephone;
 
     /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $villeRattachement;
+
+    /**
+     * @var string
+     * @ORM\Column(name="img", type="string", nullable=true)
+     * @Assert\File(
+     *     mimeTypes={"image/png" ,"image/jpg","image/jpeg"},
+     *     mimeTypesMessage = "Svp inserer une image valide (png,jpg,jpeg)")
+     */
+    private $img ;
+
+    /**
      * @ORM\Column(type="binary")
      *
      */
@@ -291,6 +305,38 @@ class User implements UserInterface
         $this->actif = $actif;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVilleRattachement()
+    {
+        return $this->villeRattachement;
+    }
+
+    /**
+     * @param mixed $villeRattachement
+     */
+    public function setVilleRattachement($villeRattachement): void
+    {
+        $this->villeRattachement = $villeRattachement;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    /**
+     * @param string $img
+     */
+    public function setImg(string $img): void
+    {
+        $this->img = $img;
     }
 
 
