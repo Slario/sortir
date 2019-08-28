@@ -2,12 +2,29 @@
 
 body{
     background-color: #7d5fff;
+    font-family: 'Comfortaa', cursive;
+}
+button a{
+    text-decoration: none !important;
+    color: white;
+}
+button a:hover{
+    color: white !important;
 }
 
-h1{ text-align: center !important;}
+h1{
+    text-align: center !important;
+}
+h2{
+    color: white;
+    text-align: center !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 /* ------------------ Header ------------------ */
 #containerNav{
     background-color: #353b48;
+    font-family: 'Play', sans-serif;
 }
 .navbar-dark{
     background-color: #353b48;
@@ -23,7 +40,7 @@ h1{ text-align: center !important;}
     color: #7d5fff;
 }
 .nav-link-color{
-    color: #18dcff !important;
+    color: #ffffffff !important;
     opacity: 0.5;
     transition: opacity 0.3s;
 }
@@ -34,9 +51,10 @@ h1{ text-align: center !important;}
     position: absolute;
     right: 15px;
 }
-.avatar{
+.avatarPetit{
     width: 40px;
     opacity: 0.5;
+    border-radius: 50px;
 }
 .logout{
     width: 20px;
@@ -59,5 +77,66 @@ h1{ text-align: center !important;}
 }
 
 /* ------------------ Main ------------------ */
+.form-control-lg{
+}
+#imgUpload{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#profil{
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+#profil button{
+    margin-top: 50px;
+}
+#avatar{
+    width: 150px;
+    margin-bottom: 30px;
+}
+.bouton{
+    background-color: #535c68;
+    padding: 15px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none !important;
+    transition: background-color 0.3s;
+}
+.bouton:hover{
+    background-color: #353b48;
+    color: white;
+}
+button{
+    border: none !important;
+}
+.labelProfil{
+    background-color: #353b48;
+    padding: 5px;
+    color: white;
+}
+.gauche{
+    text-align: right;
+}
+.droit{
+    text-align: left;
+}
+.plus{
+    width: 15px;
+}
+#site{
+    text-align: center;
+}
+#showSite{
+    text-align: center;
+}
+#utilisateur{
+    text-align: center;
+}
+#inscription{
+    text-align: center;
+}
 
 /* ------------------ Footer ------------------ */

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Accueil{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Play&display=swap" rel="stylesheet">
     {{ encore_entry_link_tags('app') }}
 </head>
 <body>
@@ -42,13 +43,17 @@
                     <li class="nav-item">
                         <a class="nav-link nav-link-color" href="#">Accueil</a>
                     </li>
-                    {% if app.User %}
+                    {% if app.user %}
                     <li class="nav-item utilisateur">
-                        <img alt="logo" class="avatar" src="{{ asset('build/images/user.svg') }}">
-                        <a class="nav-link nav-link-color scroll" href="#">
-                            Bonjour <strong>{{ app.user.pseudo }} !</strong> !
+                        {% if app.user.img is empty %}
+                        <img alt="logo" class="avatarPetit" src="{{ asset('build/images/user.svg') }}">
+                        {% else %}
+                        <img alt="logo" class="avatarPetit" src="{{ asset('uploads/photos/') }}{{ app.user.img }}">
+                        {% endif %}
+                        <a class="nav-link nav-link-color scroll" href="{{ url('user_show', { 'id' : app.user.id} )}}">
+                            Bonjour <strong>{{ app.user.pseudo }}</strong> !
                         </a>
-                        <a class="nav-link nav-link-color scroll" href="{{ path('app_logout') }}"> Se déconnecter
+                        <a class="nav-link nav-link-color scroll" href="{{ path('app_logout') }}">
                             <img alt="logout" class="logout"  src="{{ asset('build/images/cancel.svg') }}">
                         </a>
                     </li>
@@ -59,8 +64,10 @@
     </header>
 </div>
 
+<div class="container">
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
+</div>
 </body>
 
 {{ encore_entry_script_tags('app') }}
