@@ -22,22 +22,18 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Le champ email ne peut pas être vide !")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @Assert\NotBlank(message="Le champ email ne peut pas être vide !")
-     * @ORM\Column(type="string", length=180, unique=true, nullable=false)
-     */
-
-    private $pseudo;
-
-    /**
      * @Assert\NotBlank(message="Le champ pseudo ne peut pas être vide !")
+     * @ORM\Column(type="string", length=180, nullable=true)
      * @return mixed
      */
 
+    private $pseudo;
 
     /**
      * @ORM\Column(type="json")
@@ -68,17 +64,17 @@ class User implements UserInterface
     protected $oldPassword;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $telephone;
 
