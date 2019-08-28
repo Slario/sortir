@@ -43,10 +43,16 @@
             {{form_widget(form.site)}}
             {{ form_errors(form.site) }}
 
-
             {{ form_label(form.lieu)}}
+                <div class="row">
+                    <div class="col-6">
             {{form_widget(form.lieu)}}
             {{ form_errors(form.lieu) }}
+                </div>
+                    <div class="col-6">
+                <button type="button" data-toggle="modal" data-target=".bd-example-modal-lg" class="bouton">+</button>
+                </div>
+                </div>
             </div>
         </div>
 
@@ -73,6 +79,12 @@
 
     </div>
 </div>
-
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                FORMULAIRE CREATION LIEU
+            </div>
+        </div>
+    </div>
 
 {{ form_end(form) }}
