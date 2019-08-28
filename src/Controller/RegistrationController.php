@@ -46,7 +46,7 @@ class RegistrationController extends Controller
                 'main' // firewall name in security.yaml
             );
              */
-            return $this->redirectToRoute("home");
+            return $this->redirectToRoute("sortie_index");
         }
 
         return $this->render('registration/register.html.twig', [

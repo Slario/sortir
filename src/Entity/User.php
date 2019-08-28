@@ -92,7 +92,7 @@ class User implements UserInterface
      *     mimeTypes={"image/png" ,"image/jpg","image/jpeg"},
      *     mimeTypesMessage = "Svp inserer une image valide (png,jpg,jpeg)")
      */
-    private $img ;
+    private $img;
 
     /**
      * @ORM\Column(type="binary")
@@ -110,7 +110,7 @@ class User implements UserInterface
     {
         // Roles des utilisateurs
         $this->roles = ['ROLE_USER'];
-        $this ->actif=1;
+        $this->actif = 1;
 
     }
 
@@ -133,13 +133,10 @@ class User implements UserInterface
     }
 
 
-
-
     public function getPseudo()
     {
         return $this->pseudo;
     }
-
 
 
     /**
@@ -175,7 +172,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
@@ -198,7 +195,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -243,6 +240,7 @@ class User implements UserInterface
     {
         $this->plainPassword = $plainPassword;
     }
+
     /**
      * @return string
      */
@@ -343,9 +341,9 @@ class User implements UserInterface
     public function __toString(): ?string
     {
 
-        $sb = $this->getPrenom()." ".$this->getNom();
+        $sb = $this->getPrenom() . " " . $this->getNom();
 
         return $sb;
 
+    }
 }
-
