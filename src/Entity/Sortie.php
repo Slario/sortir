@@ -75,7 +75,7 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('CRE','OUV','CLO','ENC','PAS','ANN')")
+     * @ORM\Column(type="string")
      *
      */
     private $etat;
@@ -94,7 +94,7 @@ class Sortie
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
-        $this->etat = 'CRE';
+        $this->setEtat('CRE');
     }
 
 
