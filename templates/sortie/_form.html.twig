@@ -51,9 +51,17 @@
         </div>
 
 
-
+        <br>
+        <div class="row">
+            <div class="col-4">
         {{ form_row(form.submit) }}
-
+            </div>
+            <div class="col-4">
+        <button class="bouton">{{ button_label|default('Publier') }}</button>
+            </div>
+            <div class="col-4">
+                <a href="{{ path('sortie_index') }}"><button class="bouton">Annuler</button></a>
+            </div>
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert-{{ label }}">
@@ -66,5 +74,5 @@
     </div>
 </div>
 
-<button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

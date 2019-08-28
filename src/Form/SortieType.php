@@ -6,16 +6,15 @@ use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
-use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -28,21 +27,19 @@ class SortieType extends AbstractType
                 'label'=>'Nom de la sortie',
                 'attr'=> array('class'=>'form-control')
             ])
-            ->add('dateDebut',DateType::class,[
-                'label'=>'Date et heure de sortie',
-                'attr'=> array('class'=>'form-control')
+            ->add('dateDebut',DateTimeType::class,[
+                'label'=>'Date et heure de sortie'
+
             ])
-            ->add('dateCloture',DateType::class,[
-                'label'=>'Date limite d\'inscription',
-                'attr'=> array('class'=>'form-control')
+            ->add('dateCloture',DateTimeType::class,[
+                'label'=>'Date limite d\'inscription'
             ])
-            ->add('nbInscriptionsMax',NumberType::class,[
+            ->add('nbInscriptionsMax',IntegerType::class,[
                 'label'=>'Nombre de places',
                 'attr'=> array('class'=>'form-control')
             ])
             ->add('duree',DateType::class,[
-                'label'=>'Durée',
-                'attr'=> array('class'=>'form-control')
+                'label'=>'Durée en minutes'
             ])
             ->add('descriptionInfos',TextareaType::class,[
                 'label'=>'Descriptionet infos',

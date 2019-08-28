@@ -26,10 +26,12 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     *
      */
     private $dateDebut;
 
     /**
+     *
      * @ORM\Column(type="integer")
      */
     private $duree;
