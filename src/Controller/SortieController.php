@@ -5,18 +5,19 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/sortie")
+ * @Route("")
  */
 class SortieController extends Controller
 {
     /**
-     * @Route("/", name="sortie_index", methods={"GET"})
+     * @Route("", name="sortie_index", methods={"GET"})
      */
     public function index(SortieRepository $sortieRepository): Response
     {
@@ -51,10 +52,15 @@ class SortieController extends Controller
     /**
      * @Route("/{id}", name="sortie_show", methods={"GET"})
      */
-    public function show(Sortie $sortie): Response
+    public function show(Sortie $sortie,EntityManagerInterface $entityManager): Response
     {
+        $id=$sortie->getId();
+        //  Avoir la liste des participants d'une sortie
+
+        $listeParticipant = $entityManager->getRepository('App:Inscription')->findBy($id);
+
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,
+            'sortie' => $sortie,'listeParticipant'=>$listeParticipant
         ]);
     }
 
