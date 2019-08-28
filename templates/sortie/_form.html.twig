@@ -1,4 +1,77 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container-fluid">
+    <div class="form-group ">
+        {{ form_start(form) }}
+        <div class="form-group ">
+            {{ form_label(form.nom)}}
+            {{form_widget(form.nom, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.nom) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.dateDebut)}}
+            {{form_widget(form.dateDebut, {'attr': {'class':'form-control'},})}}
+            {{ form_errors(form.dateDebut) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.dateCloture)}}
+            {{form_widget(form.dateCloture, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.dateCloture) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.nbInscriptionsMax)}}
+            {{form_widget(form.nbInscriptionsMax, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.nbInscriptionsMax) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.duree)}}
+            {{form_widget(form.duree, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.duree) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.descriptionInfos)}}
+            {{form_widget(form.descriptionInfos, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.descriptionInfos) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.organisateur)}}
+            {{form_widget(form.organisateur, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.organisateur) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.site)}}
+            {{form_widget(form.site, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.site) }}
+        </div>
+        <div class="form-group ">
+
+            {{ form_label(form.lieu)}}
+            {{form_widget(form.lieu, {'attr': {'class':'form-control'}})}}
+            {{ form_errors(form.lieu) }}
+        </div>
+
+
+
+        {{ form_row(form.submit, {'attr': {'class':'btn btn-outline-success '}}) }}
+        <br><br><br><br><br><br>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+
+    </div>
+</div>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
