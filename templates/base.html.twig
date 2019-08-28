@@ -51,8 +51,10 @@
         </nav>
     </header>
 </div>
+
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
+{% for label, messages in app.flashes %}
 </body>
 
 {{ encore_entry_script_tags('app') }}

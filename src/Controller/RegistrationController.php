@@ -37,13 +37,16 @@ class RegistrationController extends Controller
             $entityManager->flush();
 
             // do anything else you need here, like send an email
-
+            $this->addFlash("success", "L'utilisateur vient d'être ajouté en base de donnée");
+            /**
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml
             );
+             */
+            return $this->redirectToRoute("home");
         }
 
         return $this->render('registration/register.html.twig', [
