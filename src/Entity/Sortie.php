@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Sortie
 {
+
+    const ETAT_CREE = 'CRE';
+    const ETAT_OUVERTE = 'OUV';
+    const ETAT_EN_COURS = 'ENC';
+    const ETAT_PASSEE = 'PAS';
+    const ETAT_ANNULLE = 'ANN';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -68,8 +75,8 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", columnDefinition="ENUM('CRE','OUV','CLO','ENC','PAS','ANN')")
+     *
      */
     private $etat;
 
@@ -87,6 +94,7 @@ class Sortie
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
+        $this->etat = 'CRE';
     }
 
 
@@ -205,13 +213,16 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?Etat
+    public function getEtat(): ?string
     {
         return $this->etat;
     }
 
-    public function setEtat(?Etat $etat): self
+    public function setEtat(?string $etat): self
     {
+        if (!in_array($etat, array(self::ETAT_ANNULLE, self::ETAT_CREE, self::ETAT_EN_COURS, self::ETAT_OUVERTE, self::ETAT_PASSEE))) {
+            throw new \InvalidArgumentException("Etat invalide");
+        }
         $this->etat = $etat;
 
         return $this;
@@ -260,6 +271,10 @@ class Sortie
         return $this;
     }
 
+    public function __toString(): ?string
+    {
+       return $this->getNom();
+    }
 
 
 }

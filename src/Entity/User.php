@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -36,9 +38,9 @@ class User implements UserInterface
     private $pseudo;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="array")
      */
-    private $roles = [];
+    private $roles;
 
     /**
      * @var string The hashed password
@@ -80,9 +82,15 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="binary")
+     *
      */
     private $actif;
 
+    /**
+     * @ManyToOne(targetEntity="App\Entity\Site", inversedBy="users")
+     * @JoinColumn(name="site_id", referencedColumnName="id")
+     */
+    private $site;
 
     public function __construct()
     {
@@ -90,6 +98,24 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
         $this ->actif=1;
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    /**
+     * @param mixed $site
+     */
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
     }
 
 
@@ -267,17 +293,13 @@ class User implements UserInterface
         return $this;
     }
 
+    public function __toString(): ?string
+    {
 
+        $sb = $this->getPrenom()." ".$this->getNom();
 
-
-
-
-
-
-
-
-
-
+        return $sb;
+    }
 
 
 }
