@@ -5,6 +5,7 @@
 {% block body %}
     <h2>Liste des utilisateurs</h2>
 
+
     <h3>Filtrer les utilisateurs</h3>
     <form action="{{ path('user_recherche') }}" method="GET">
         <div class="d-inline-block">
@@ -30,8 +31,9 @@
                 <th>Email</th>
                 <th>Ville de rattachement</th>
                 <th>Action</th>
-            </tr>
-            </thead>
+
+        </tr>
+        </thead>
             <tbody>
             {% for user in listeUsers %}
                 <tr>
