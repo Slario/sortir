@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Annuler une sortie
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="form-group ">
+        Nom de la sortie : {{ sortie.nom }}
+        <br>
+        Date de la sortie : {{ sortie.dateDebut | date('dd/mm/yyyy') }}
+        Nom de l'organisateur : {{ sortie.organisateur }}
+        Lieu : {{ sortie.lieu.nomLieu }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}
+
+        {{ form_start(form) }}
+
+        {{ form_label(form.motif)}}
+        {{form_widget(form.motif)}}
+        {{ form_errors(form.motif) }}
+
+        {{ form_row(form.submit) }}
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+

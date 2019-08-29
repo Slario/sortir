@@ -65,6 +65,11 @@ class Sortie
     private $urlPhoto;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $motif;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orgaSortie")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -299,6 +304,22 @@ class Sortie
     public function __toString(): ?string
     {
        return $this->getNom();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMotif()
+    {
+        return $this->motif;
+    }
+
+    /**
+     * @param mixed $motif
+     */
+    public function setMotif($motif): void
+    {
+        $this->motif = $motif;
     }
 
 

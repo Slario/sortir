@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
+use App\Form\LieuType;
+use App\Form\SortieCancelType;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,20 +35,27 @@ class SortieController extends Controller
     public function new(Request $request): Response
     {
         $sortie = new Sortie();
+        $lieu = new Lieu();
+
         $form = $this->createForm(SortieType::class, $sortie);
+        $formLieu = $this->createForm(LieuType::class,$lieu);
+
         $form->handleRequest($request);
+        $formLieu->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
-
+            // do anything else you need here, like send an email
+            $this->addFlash("success", "La sortie vient d'être ajouté en base de donnée");
             return $this->redirectToRoute('sortie_index');
         }
 
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
+            'formLieu' =>$formLieu->createView()
         ]);
     }
 
@@ -54,6 +64,7 @@ class SortieController extends Controller
      */
     public function show(Sortie $sortie,EntityManagerInterface $entityManager): Response
     {
+
         $id=$sortie->getId();
         //  Avoir la liste des participants d'une sortie
 
@@ -62,7 +73,7 @@ class SortieController extends Controller
 
         //$listeParticipant = $entityManager->getRepository('User')->findBy(['inscriptions' => ])
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,'listeParticipant'=>$listeParticipant
+            'sortie' => $sortie,
         ]);
     }
 
@@ -71,16 +82,48 @@ class SortieController extends Controller
      */
     public function edit(Request $request, Sortie $sortie): Response
     {
+        $lieu = new Lieu();
+
         $form = $this->createForm(SortieType::class, $sortie);
+        $formLieu = $this->createForm(LieuType::class,$lieu);
+
+        $formLieu->handleRequest($request);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            // do anything else you need here, like send an email
+            $this->addFlash("success", "La sortie vient d'être modifiée en base de donnée");
 
             return $this->redirectToRoute('sortie_index');
         }
 
         return $this->render('sortie/edit.html.twig', [
+            'sortie' => $sortie,
+            'form' => $form->createView(),
+            'formLieu' =>$formLieu->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/cancel", name="sortie_cancel", methods={"GET","POST"})
+     */
+    public function cancel(Request $request, Sortie $sortie): Response
+    {
+        $form = $this->createForm(SortieCancelType::class, $sortie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $this->getDoctrine()->getManager()->flush();
+
+            // do anything else you need here, like send an email
+            $this->addFlash("success", "La sortie vient d'être annulée");
+
+            return $this->redirectToRoute('sortie_index');
+        }
+
+        return $this->render('sortie/cancel.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
         ]);
