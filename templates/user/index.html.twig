@@ -14,7 +14,6 @@
             <th>Nom</th>
             <th>Téléphone</th>
             <th>Email</th>
-            <th>Ville de rattachement</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -26,7 +25,6 @@
                 <td>{{ user.nom }}</td>
                 <td>0{{ user.telephone }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.villeRattachement }}</td>
                 <td>
                     <div class="d-inline-block">
                         <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-primary">
