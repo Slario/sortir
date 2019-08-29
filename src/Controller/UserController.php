@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\File;
@@ -93,5 +94,16 @@ class UserController extends Controller
         }
 
         return $this->redirectToRoute('user_index');
+    }
+    /**
+     * @Route("/recherche/", name="user_recherche", methods={"GET"})
+     */
+    public function rechercher(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $rechercher = true;
+        $request = Request::createFromGlobals();
+        $recherche = $request->query->get('recherche');
+        $listeUsers = $entityManager->getRepository('App:User')->getUserByMotCle($recherche);
+        return $this->render("user/index.html.twig", ["listeUsers" => $listeUsers, "rechercher" => $rechercher]);
     }
 }

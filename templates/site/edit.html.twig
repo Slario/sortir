@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Site{% endblock %}
+{% block title %}Modifier Site{% endblock %}
 
 {% block body %}
-    <h1>Edit Site</h1>
-
-    {{ include('site/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('site_index') }}">back to list</a>
-
-    {{ include('site/_delete_form.html.twig') }}
+    <h2>Modifier Site</h2>
+    <div class="text-center">
+        {{ include('site/_form.html.twig', {'button_label': 'Modifier'}) }}
+        <a href="{{ path('site_index') }}" class="bouton d-inline-block">Annuler</a>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

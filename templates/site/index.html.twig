@@ -7,19 +7,17 @@
     <h3>Filtrer les sites</h3>
     <form action="{{ path('site_recherche')}}" method="GET">
         <div class="d-inline-block">
-            <label for="recherche">Le nom contient</label>
-        </div>
-        <div class="d-inline-block">
             <input type="text" name="recherche" class="form-control">
         </div>
         <div class="d-inline-block">
             <input type="submit" value="Rechercher">
+            <img alt="plus" class="plus" src="{{ asset('build/images/loupe.svg') }}">
         </div>
 
     </form>
 
     {% if rechercher is defined %}
-        <div id="site">
+        <div class="text-center">
             <table class="table">
                 <thead>
                 <tr>
@@ -52,7 +50,7 @@
             </table>
 
     {% else %}
-            <div id="site">
+            <div class="text-center">
                 <table class="table">
                     <thead>
                     <tr>

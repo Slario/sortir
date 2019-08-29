@@ -113,6 +113,9 @@ h2{
     transition: background-color 0.5s;
     margin-top: 50px;
 }
+.bouton a{
+    display: inline-block;
+}
 .bouton:hover{
     color:white;
     background-color: #184bbb;
@@ -135,20 +138,7 @@ button{
 .plus{
     width: 15px;
 }
-#site{
-    text-align: center;
-}
-#showSite{
-    text-align: center;
-}
-#utilisateur{
-    text-align: center;
-}
-#inscription{
-    text-align: center;
-}
-#connexion{
-    text-align: center !important;
-}
+
+
 
 /* ------------------ Footer ------------------ */

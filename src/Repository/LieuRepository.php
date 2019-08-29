@@ -14,6 +14,15 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class LieuRepository extends ServiceEntityRepository
 {
+    public function getLieuByMotCle($recherche) {
+        $req = $this->createQueryBuilder('l')
+            ->select('l')
+            ->where('l.nomLieu like :recherche')
+            ->setParameter('recherche', "%$recherche%");
+        $query = $req->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Lieu::class);
