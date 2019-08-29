@@ -8,7 +8,12 @@
 <div id="profil">
     {{ form_start(form) }}
     <div id="imgUpload">
-        {{ form_row(form.img) }}
+        {% if app.user.img is empty %}
+            {{ form_row(form.img) }}
+        {% else %}
+            <img id="avatar" alt="avatar"  src="{{ asset('uploads/photos/') }}{{ user.img }}">
+            {{ form_row(form.img) }}
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-6">

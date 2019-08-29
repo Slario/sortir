@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Site;
 use App\Form\SiteType;
 use App\Repository\SiteRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -91,4 +93,18 @@ class SiteController extends Controller
 
         return $this->redirectToRoute('site_index');
     }
+
+    /**
+     * @Route("/recherche/", name="site_recherche", methods={"GET"})
+     */
+    public function rechercher(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $rechercher = true;
+        $request = Request::createFromGlobals();
+        $recherche = $request->query->get('recherche');
+        $listeSites = $entityManager->getRepository('App:Site')->getByMotCle($recherche);
+        /*$listeSites = $entityManager->getRepository('App:Site')->getByMotCle($recherche["nom"]);*/
+        return $this->render("site/index.html.twig", ["listeSites" => $listeSites, "rechercher" => $rechercher]);
+    }
+
 }
