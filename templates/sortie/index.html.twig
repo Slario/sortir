@@ -40,11 +40,18 @@
                 </td>
                 <td>
                     {% if sortie.estInscris(app.user) %}
-                    {{ X }}
+                     X
+                        {% else %}
+
                     {% endif %}
                 </td>
                 <td>{{ sortie.organisateur }}</td>
                 <td>
+                    {% if sortie.estInscris(app.user) %}
+                    <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
+                    {% else %}
+                    <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                    {% endif %}
                     <a href="{{ path('sortie_show', {'id': sortie.id}) }}">show</a>
                     <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
                 </td>
