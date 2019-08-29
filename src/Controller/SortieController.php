@@ -57,8 +57,10 @@ class SortieController extends Controller
         $id=$sortie->getId();
         //  Avoir la liste des participants d'une sortie
 
-        $listeParticipant = $entityManager->getRepository('App:Inscription')->findBy($id);
+        $listeParticipant = $entityManager->getRepository('App:Inscription')->findBy(['sortie' => $sortie]);
 
+
+        //$listeParticipant = $entityManager->getRepository('User')->findBy(['inscriptions' => ])
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,'listeParticipant'=>$listeParticipant
         ]);
