@@ -35,13 +35,25 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link nav-link-color" href="#">Villes</a>
+                        <a class="nav-link nav-link-color" href="{{ path('ville_index') }}">Villes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-color" href="#">Sites</a>
+                        <a class="nav-link nav-link-color" href="{{ path('site_index') }}">Sites</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-color" href="#">Accueil</a>
+                        <a class="nav-link nav-link-color" href="{{ path('user_index') }}">Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-color" href="{{ path('lieu_index') }}">Lieux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-color" href="{{ path('app_login') }}">Connexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-color" href="{{ path('app_register') }}">Inscription</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-color" href="{{ path('sortie_index') }}">Accueil</a>
                     </li>
                     {% if app.user %}
                     <li class="nav-item utilisateur">
