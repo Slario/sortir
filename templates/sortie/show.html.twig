@@ -4,9 +4,9 @@
 
 {% block body %}
     <h1>Sortie</h1>
-<div class="form-group ">
-    <div class="row">
-        <div class="col-6">
+    <div class="form-group ">
+        <div class="row">
+            <div class="col-6">
 
                 Nom de la sortie
                 {{ sortie.nom }}
@@ -25,8 +25,8 @@
 
                 Description et infos
                 {{ sortie.descriptionInfos }}
-        </div>
-        <div class="col-6">
+            </div>
+            <div class="col-6">
                 Ville Organisatrice
                 {{ sortie.site.nom }}
 
@@ -44,11 +44,12 @@
 
                 Longitude
                 {{ sortie.lieu.longitude }}
+            </div>
+
         </div>
-
     </div>
-</div>
 
+</div>
 
     <div class="table-responsive">
         <table class="table">
@@ -60,11 +61,16 @@
             </tr>
             </thead>
 
+
             {% for inscrip in sortie.inscriptions %}
 
                 <tr>
                     <td>{{ inscrip.participant.pseudo }}</td>
                     <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
+                </tr>
+
+                    <td>{{ Inscription.participant.pseudo }}</td>
+                    <td>{{ Inscription.participant.nom }} {{ Inscription.participant.prenom }}</td>
                 </tr>
 
 
@@ -74,5 +80,11 @@
             {% endfor %}
 
     </table>
+
+
+            {% endfor %}
+        </table>
+        {% endif %}
+
     </div>
 {% endblock %}
