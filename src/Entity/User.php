@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
@@ -80,10 +81,6 @@ class User implements UserInterface
      */
     private $telephone;
 
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $villeRattachement;
 
     /**
      * @var string
@@ -105,6 +102,11 @@ class User implements UserInterface
      * @JoinColumn(name="site_id", referencedColumnName="id")
      */
     private $site;
+
+    /**
+     * @OneToMany(targetEntity="App\Entity\Inscription", mappedBy="participant")
+     */
+    private $inscriptions;
 
     public function __construct()
     {
