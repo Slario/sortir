@@ -309,6 +309,7 @@ class User implements UserInterface
         return $this;
     }
 
+
     /**
      * @return string
      */
