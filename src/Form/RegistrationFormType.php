@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,6 +21,13 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+             ->add('site',EntityType::class, [
+                'class'=>Site::class,
+                'choice_label'=>'nom',
+                'label'=>'Organisme',
+                'trim'=>true,
+                'attr'=> array('class'=>'form-control')
+            ])
             ->add('email', EmailType::class,[
                 'label'=>'Email',
                 'trim'=>true
@@ -27,6 +36,18 @@ class RegistrationFormType extends AbstractType
                 'label'=>'Pseudo',
                 'trim'=>true,
                 'required'=>false
+            ])
+            ->add('prenom', TextType::class,[
+                'label'=>'Prénom',
+                'trim'=>true
+            ])
+            ->add('nom', TextType::class,[
+                'label'=>'Nom',
+                'trim'=>true
+            ])
+            ->add('telephone', TextType::class,[
+                'label'=>'Téléphone',
+                'trim'=>true
             ])
 
             ->add('plainPassword', RepeatedType::class, [
@@ -50,7 +71,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
 
-                "label" => "Inscrire",]);
+                "label" => "Inscription",]);
 
         ;
     }
