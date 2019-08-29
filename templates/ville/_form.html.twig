@@ -1,4 +1,5 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+    {{ form_row(form.nom, {'attr': {'class':'form-control'}}) }}
+    {{ form_row(form.codePostal, {'attr': {'class':'form-control'}}) }}
+    <button class="bouton d-inline-block">{{ button_label|default('Save') }}</button>
+{# {{ form_end(form) }} #}

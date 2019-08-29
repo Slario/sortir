@@ -1,4 +1,9 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+
+    {{ form_row(form.ville, {'attr': {'class':'form-control'}}) }}
+    {{ form_row(form.nomLieu, {'attr': {'class':'form-control'}}) }}
+    {{ form_row(form.rue, {'attr': {'class':'form-control'}}) }}
+    {{ form_row(form.latitude, {'attr': {'class':'form-control'}}) }}
+    {{ form_row(form.longitude, {'attr': {'class':'form-control'}}) }}
+    <button class="bouton d-inline-block">{{ button_label|default('Save') }}</button>
+{# {{ form_end(form) }} #}
