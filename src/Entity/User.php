@@ -307,21 +307,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getVilleRattachement()
-    {
-        return $this->villeRattachement;
-    }
-
-    /**
-     * @param mixed $villeRattachement
-     */
-    public function setVilleRattachement($villeRattachement): void
-    {
-        $this->villeRattachement = $villeRattachement;
-    }
 
     /**
      * @return string

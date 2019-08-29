@@ -39,7 +39,7 @@ class SortieType extends AbstractType
                 'label'=>'Nombre de places',
                 'attr'=> array('class'=>'form-control')
             ])
-            ->add('duree',DateType::class,[
+            ->add('duree',NumberType::class,[
                 'label'=>'Durée en minutes'
             ])
             ->add('descriptionInfos',TextareaType::class,[
