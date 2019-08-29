@@ -98,17 +98,25 @@ h2{
     width: 150px;
     margin-bottom: 30px;
 }
-.bouton{
-    background-color: #535c68;
-    padding: 15px;
+.bouton {
+    display: inline-block;
+    font-weight: 400;
     color: white;
-    border-radius: 5px;
-    text-decoration: none !important;
-    transition: background-color 0.3s;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #7d5fff;
+    border: 2px solid white !important;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: .3rem;
+    transition: background-color 0.5s;
+    margin-top: 50px;
 }
 .bouton:hover{
-    background-color: #353b48;
-    color: white;
+    color:white;
+    background-color: #184bbb;
+    text-decoration:none
 }
 button{
     border: none !important;
@@ -138,6 +146,9 @@ button{
 }
 #inscription{
     text-align: center;
+}
+#connexion{
+    text-align: center !important;
 }
 
 /* ------------------ Footer ------------------ */
