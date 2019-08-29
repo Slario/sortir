@@ -306,20 +306,18 @@ class Sortie
        return $this->getNom();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMotif()
+
+    public function getMotif(): ?string
     {
         return $this->motif;
     }
 
-    /**
-     * @param mixed $motif
-     */
-    public function setMotif($motif): void
+
+    public function setMotif($motif): self
     {
         $this->motif = $motif;
+
+        return $this;
     }
 
 

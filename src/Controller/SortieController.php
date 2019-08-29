@@ -111,14 +111,15 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/cancel", name="sortie_cancel", methods={"GET","POST"})
      */
+
     public function cancel(Request $request, Sortie $sortie): Response
     {
-        $form = $this->createForm(SortieCancelType::class, $sortie);
+        $form = $this->createForm(SortieCancelType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $this->getDoctrine()->getManager()->flush();
+            //$this->getDoctrine()->getManager()->flush();
 
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être annulée");
@@ -127,7 +128,7 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/cancel.html.twig', [
-            'sortie' => $sortie,
+
             'form' => $form->createView(),
         ]);
     }
@@ -182,5 +183,7 @@ class SortieController extends Controller
         return $this->redirectToRoute('sortie_index');
 
     }
+
+
 
 }
