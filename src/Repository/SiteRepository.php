@@ -14,6 +14,15 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class SiteRepository extends ServiceEntityRepository
 {
+    public function getByMotCle($recherche) {
+        $req = $this->createQueryBuilder('s')
+            ->select('s')
+            ->where('s.nom like :recherche')
+            ->setParameter('recherche', "%$recherche%");
+        $query = $req->getQuery();
+        $result = $query->getResult();
+        return $result;
+    }
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Site::class);

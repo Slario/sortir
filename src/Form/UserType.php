@@ -3,7 +3,9 @@
 
 namespace App\Form;
 
+use App\Entity\Site;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -25,7 +27,7 @@ class UserType extends AbstractType
             'constraints' => [
                 new File ([
                     'maxSize' => '1024k' ,
-                    'mimeTypesMessage' => 'Please upload a valid img document' ,
+                    'mimeTypesMessage' => 'Merci de choisir une image valide !' ,
                 ])
             ],
         ]);
@@ -72,12 +74,12 @@ class UserType extends AbstractType
             'first_options'  => ['label' => 'Mot de passe'],
             'second_options' => ['label' => 'Confirmation mot de passe'],
         ]);
-        $builder->add('villeRattachement', TextType::class, [
-            "error_bubbling" => true,
-            "trim" => true,
-            "label" => "Ville de rattachement",
-            "required" => false,
-            'attr' => array('class' => 'form-control form-control-lg'),
+        $builder->add('villeRattachement',EntityType::class, [
+        'class'=>Site::class,
+        'choice_label'=>'nom',
+        'label'=>'Organisme',
+        'trim'=>true,
+        'attr'=> array('class'=>'form-control')
         ]);
     }
     public function configureOptions(OptionsResolver $resolver)
