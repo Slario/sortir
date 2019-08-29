@@ -65,6 +65,13 @@ class SortieController extends Controller
     public function show(Sortie $sortie,EntityManagerInterface $entityManager): Response
     {
 
+        $id=$sortie->getId();
+        //  Avoir la liste des participants d'une sortie
+
+        $listeParticipant = $entityManager->getRepository('App:Inscription')->findBy(['sortie' => $sortie]);
+
+
+        //$listeParticipant = $entityManager->getRepository('User')->findBy(['inscriptions' => ])
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);

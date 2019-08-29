@@ -82,7 +82,7 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=3)
      *
      */
     private $etat;
@@ -276,6 +276,29 @@ class Sortie
         }
 
         return $this;
+    }
+
+    public function getnbInscriptions(){
+
+        if (!$this->getInscriptions()->isEmpty()) {
+            $count = $this->getInscriptions()->indexOf($this->getInscriptions()->last()) + 1;
+        }else{
+            $count = 0;
+        }
+
+        return $count;
+    }
+
+    public function estInscris($user)
+    {
+        $inscris = false;
+        foreach($this->getInscriptions() as $ins){
+            if ($ins->getParticipant() === $user){
+                $inscris = true;
+                break;
+            }
+        }
+        return $inscris;
     }
 
     public function __toString(): ?string

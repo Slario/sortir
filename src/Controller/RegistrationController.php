@@ -15,7 +15,7 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends Controller
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/register/", name="app_register")
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
     {
@@ -46,7 +46,13 @@ class RegistrationController extends Controller
                 'main' // firewall name in security.yaml
             );
              */
-            return $this->redirectToRoute("sortie_index");
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('App\Security\UserAuthenticator'),
+                    'main'
+                );
         }
 
         return $this->render('registration/register.html.twig', [
