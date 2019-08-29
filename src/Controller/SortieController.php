@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Inscription;
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\InscriptionRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -52,17 +54,17 @@ class SortieController extends Controller
     /**
      * @Route("/{id}", name="sortie_show", methods={"GET"})
      */
-    public function show(Sortie $sortie,EntityManagerInterface $entityManager): Response
+    public function show(Sortie $sortie): Response
     {
-        $id=$sortie->getId();
+        //$id=$sortie->getId();
         //  Avoir la liste des participants d'une sortie
 
-        $listeParticipant = $entityManager->getRepository('App:Inscription')->findBy(['sortie' => $sortie]);
+        //$listeParticipant = $entityManager->getRepository('App:Inscription')->findBy(['sortie' => $sortie]);
 
 
         //$listeParticipant = $entityManager->getRepository('User')->findBy(['inscriptions' => ])
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie,'listeParticipant'=>$listeParticipant
+            'sortie' => $sortie
         ]);
     }
 
@@ -99,4 +101,42 @@ class SortieController extends Controller
 
         return $this->redirectToRoute('sortie_index');
     }
+
+    /**
+     * @Route("/addParticipant/{id}", name="sortie_add_participant", methods={"GET"})
+     */
+    public function sInscrireAUneSortie(EntityManagerInterface $entityManager, Sortie $sortie){
+
+        $user = $this->getUser();
+        $inscription = new Inscription();
+        $inscription->setParticipant($user)->setSortie($sortie)->setDateInscription(new \DateTime());
+        $user->addInscription($inscription);
+        $sortie->addInscription($inscription);
+        $entityManager->persist($user);
+        $entityManager->persist($sortie);
+        $entityManager->persist($inscription);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_index');
+
+    }
+
+    /**
+     * @Route("/removeParticipant/{id}", name="sortie_remove_participant", methods={"GET"})
+     */
+    public function seDesabonnerDUneSortie(EntityManagerInterface $entityManager, InscriptionRepository $inscriptionRepository, Sortie $sortie){
+
+        $user = $this->getUser();
+        $inscription = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
+        $user->removeInscription($inscription);
+        $sortie->removeInscription($inscription);
+        $entityManager->remove($inscription);
+        $entityManager->persist($user);
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('sortie_index');
+
+    }
+
 }

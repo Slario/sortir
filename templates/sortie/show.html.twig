@@ -49,31 +49,30 @@
     </div>
 </div>
 
-{% if listeParticipant|length >0 %}
-<div class="table-responsive">
-    <table class="table">
-        <thead>
 
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-        </tr>
-        </thead>
-
-        {% for Inscription in listeParticipant %}
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
 
             <tr>
-                <td>{{ Inscription.participant.pseudo }}</td>
-                <td>{{ Inscription.participant.nom }} {{ Inscription.participant.prenom }}</td>
-                <td>{{ Ad.cp }}</td>
-                <td>{{ Ad.prix }} €</td>
-                <td>{{ Ad.categorie.getLibelle() }}</td>
-                <td>{{   Ad.dateCreation | date('d/m/Y') }} à {{   Ad.dateCreation | date('H:i:s', "Europe/Paris") }}</td>
+                <th>Pseudo</th>
+                <th>Nom</th>
             </tr>
+            </thead>
+
+            {% for inscrip in sortie.inscriptions %}
+
+                <tr>
+                    <td>{{ inscrip.participant.pseudo }}</td>
+                    <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
+                </tr>
 
 
 
-        {% endfor %}
+            {% else %}
+            Aucun participants.
+            {% endfor %}
+
     </table>
-
+    </div>
 {% endblock %}
