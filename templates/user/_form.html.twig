@@ -18,12 +18,15 @@
     <div class="row">
         <div class="col-6">
             {{ form_row(form.pseudo) }}
-            {{ form_row(form.prenom) }}
-            {{ form_row(form.nom) }}
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" value="{{ user.prenom }}" class="form-control form-control-lg" disabled>
+            <label for="prenom">Nom</label>
+            <input type="text" name="nom"  value="{{ user.nom }}" class="form-control form-control-lg" disabled>
             {{ form_row(form.telephone) }}
         </div>
         <div class="col-6">
-            {{ form_row(form.email) }}
+            <label for="prenom">Email</label>
+            <input type="text" name="email"  value="{{ user.email }}" class="form-control form-control-lg" disabled>
             {{ form_row(form.plainPassword) }}
             {{ form_row(form.site) }}
 
