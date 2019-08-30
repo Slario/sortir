@@ -48,12 +48,13 @@ class SortieType extends AbstractType
                 'attr'=> array('class'=>'form-control')
             ])
 
-            ->add('organisateur',EntityType::class,[
+            /*->add('organisateur',EntityType::class,[
                 'class'=>User::class,
                 'label'=>'Organisateur',
+                'disabled'=>true,
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
-            ])
+            ])*/
             ->add('site',EntityType::class,[
                 'class'=>Site::class,
                 'choice_label'=>'nom',
@@ -69,9 +70,12 @@ class SortieType extends AbstractType
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('enregistrer', SubmitType::class, [
                 'attr'=> array('class'=>'bouton'),
-                "label" => "Enregistrer",]);
+                "label" => "Enregistrer",])
+            ->add('publier', SubmitType::class, [
+            'attr'=> array('class'=>'bouton'),
+            "label" => "Publier",]);
 
     }
 

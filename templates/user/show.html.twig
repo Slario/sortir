@@ -22,7 +22,8 @@
                 <p>Nom</p>
                 <p>Téléphone</p>
                 <p>Email</p>
-                <p>Site</p>
+                <p>Site de rattachement</p>
+
             </div>
             <div class="col-6 droit">
                 {% if user.pseudo is empty %}
@@ -49,7 +50,8 @@
                 {% if user.site is empty %}
                     <p>-</p>
                 {% else %}
-                    <p>{{ user.site }}</p>
+                    <p>{{ user.site.nom }}</p>
+
                 {% endif %}
             </div>
         </div>
