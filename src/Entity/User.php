@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -109,12 +110,18 @@ class User implements UserInterface
      */
     private $inscriptions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur", orphanRemoval=true)
+     */
+    private $orgaSortie;
+
     public function __construct()
     {
         // Roles des utilisateurs
         $this->roles = ['ROLE_USER'];
         $this->actif = 1;
         $this->inscriptions = new ArrayCollection();
+        $this->orgaSortie = new ArrayCollection();
 
     }
 
@@ -353,6 +360,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($inscription->getParticipant() === $this) {
                 $inscription->setParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getOrgaSortie(): Collection
+    {
+        return $this->orgaSortie;
+    }
+
+    public function addOrgaSortie(Sortie $orgaSortie): self
+    {
+        if (!$this->orgaSortie->contains($orgaSortie)) {
+            $this->orgaSortie[] = $orgaSortie;
+            $orgaSortie->setOrganisatrice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrgaSortie(Sortie $orgaSortie): self
+    {
+        if ($this->orgaSortie->contains($orgaSortie)) {
+            $this->orgaSortie->removeElement($orgaSortie);
+            // set the owning side to null (unless already changed)
+            if ($orgaSortie->getOrganisatrice() === $this) {
+                $orgaSortie->setOrganisatrice(null);
             }
         }
 

@@ -69,11 +69,7 @@ class Sortie
      */
     private $motif;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orgaSortie")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $organisateur;
+    
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
@@ -97,6 +93,12 @@ class Sortie
      * @ORM\OneToMany(targetEntity="App\Entity\Inscription", mappedBy="sortie")
      */
     private $inscriptions;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orgaSortie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
 
     public function __construct()
     {
@@ -316,6 +318,18 @@ class Sortie
     public function setMotif($motif): self
     {
         $this->motif = $motif;
+
+        return $this;
+    }
+
+    public function getOrganisatrice(): ?User
+    {
+        return $this->organisatrice;
+    }
+
+    public function setOrganisatrice(?User $organisatrice): self
+    {
+        $this->organisatrice = $organisatrice;
 
         return $this;
     }

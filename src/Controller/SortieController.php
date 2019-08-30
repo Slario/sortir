@@ -59,7 +59,7 @@ class SortieController extends Controller
             $entityManager->persist($sortie);
             $entityManager->flush();
             // do anything else you need here, like send an email
-            $this->addFlash("success", "La sortie vient d'être ajouté en base de donnée");
+            $this->addFlash("success", "La sortie vient d'être ajoutée en base de donnée");
             return $this->redirectToRoute('sortie_index');
         }
 
