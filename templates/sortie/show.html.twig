@@ -3,88 +3,80 @@
 {% block title %}Sortie{% endblock %}
 
 {% block body %}
-    <h1>Sortie</h1>
-    <div class="form-group ">
-        <div class="row">
-            <div class="col-6">
+<h1>Sortie</h1>
+<div class="form-group ">
+    <div class="row">
+        <div class="col-6">
 
-                Nom de la sortie
-                {{ sortie.nom }}
+            Nom de la sortie
+            {{ sortie.nom }}
 
-                Date et heure de la sortie
-                {{ sortie.dateDebut ? sortie.dateDebut|date('Y-m-d H:i:s') : '' }}
+            Date et heure de la sortie
+            {{ sortie.dateDebut ? sortie.dateDebut|date('Y-m-d H:i:s') : '' }}
 
-                Date limite de l'inscription
-                {{ sortie.dateCloture ? sortie.dateCloture|date('Y-m-d H:i:s') : '' }}
+            Date limite de l'inscription
+            {{ sortie.dateCloture ? sortie.dateCloture|date('Y-m-d H:i:s') : '' }}
 
-                Nombre de places
-                {{ sortie.nbInscriptionsMax }}
+            Nombre de places
+            {{ sortie.nbInscriptionsMax }}
 
-                Durée
-                {{ sortie.duree }}
+            Durée
+            {{ sortie.duree }}
 
-                Description et infos
-                {{ sortie.descriptionInfos }}
-            </div>
-            <div class="col-6">
-                Ville Organisatrice
-                {{ sortie.site.nom }}
-
-                Lieu
-                {{ sortie.lieu.nomLieu }}
-
-                Rue
-                {{ sortie.lieu.rue }}
-
-                Code Postal
-                {{ sortie.lieu.ville.codePostal }}
-
-                Latitude
-                {{ sortie.lieu.latitude }}
-
-                Longitude
-                {{ sortie.lieu.longitude }}
-            </div>
-
+            Description et infos
+            {{ sortie.descriptionInfos }}
         </div>
-    </div>
+        <div class="col-6">
+            Ville Organisatrice
+            {{ sortie.site.nom }}
 
+            Lieu
+            {{ sortie.lieu.nomLieu }}
+
+            Rue
+            {{ sortie.lieu.rue }}
+
+            Code Postal
+            {{ sortie.lieu.ville.codePostal }}
+
+            Latitude
+            {{ sortie.lieu.latitude }}
+
+            Longitude
+            {{ sortie.lieu.longitude }}
+        </div>
+
+    </div>
 </div>
 
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+        </tr>
+        </thead>
+
+
+        {% for inscrip in sortie.inscriptions %}
 
             <tr>
-                <th>Pseudo</th>
-                <th>Nom</th>
+                <td>{{ inscrip.participant.pseudo }}</td>
+                <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
             </tr>
-            </thead>
-
-
-            {% for inscrip in sortie.inscriptions %}
-
-                <tr>
-                    <td>{{ inscrip.participant.pseudo }}</td>
-                    <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
-                </tr>
-
-                    <td>{{ Inscription.participant.pseudo }}</td>
-                    <td>{{ Inscription.participant.nom }} {{ Inscription.participant.prenom }}</td>
-                </tr>
+            <tr>
+                <td>{{ Inscrip.participant.pseudo }}</td>
+                <td>{{ Inscrip.participant.nom }} {{ Inscription.participant.prenom }}</td>
+            </tr>
 
 
 
-            {% else %}
+        {% else %}
             Aucun participants.
-            {% endfor %}
-
+        {% endfor %}
     </table>
 
-
-            {% endfor %}
-        </table>
-        {% endif %}
-
-    </div>
+</div>
 {% endblock %}
