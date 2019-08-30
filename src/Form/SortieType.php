@@ -23,32 +23,30 @@ class SortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom',TextType::class,[
-                'label'=>'Nom de la sortie',
-                'attr'=> array('class'=>'form-control')
+            ->add('nom', TextType::class, [
+                'label' => 'Nom de la sortie',
+                'attr' => array('class' => 'form-control')
             ])
-            ->add('dateDebut',DateTimeType::class,[
-                'label'=>'Date et heure de sortie'
+            ->add('dateDebut', DateTimeType::class, [
+                'label' => 'Date et heure de sortie'
 
             ])
-            ->add('dateCloture',DateTimeType::class,[
-                'label'=>'Date limite d\'inscription'
+            ->add('dateCloture', DateTimeType::class, [
+                'label' => 'Date limite d\'inscription'
             ])
-            ->add('nbInscriptionsMax',IntegerType::class,[
-                'label'=>'Nombre de places',
-                'attr'=> array('class'=>'form-control')
+            ->add('nbInscriptionsMax', IntegerType::class, [
+                'label' => 'Nombre de places',
+                'attr' => array('class' => 'form-control')
             ])
+            ->add('duree', NumberType::class, [
 
-            ->add('duree',NumberType::class,[
-
-                'label'=>'Durée en minutes'
+                'label' => 'Durée en minutes'
             ])
-            ->add('descriptionInfos',TextareaType::class,[
-                'label'=>'Description et infos',
-                'trim'=>true,
-                'attr'=> array('class'=>'form-control')
+            ->add('descriptionInfos', TextareaType::class, [
+                'label' => 'Description et infos',
+                'trim' => true,
+                'attr' => array('class' => 'form-control')
             ])
-
             /*->add('organisateur',EntityType::class,[
                 'class'=>User::class,
                 'label'=>'Organisateur',
@@ -56,33 +54,30 @@ class SortieType extends AbstractType
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
             ])*/
-            ->add('site',EntityType::class,[
-                'class'=>Site::class,
-                'choice_label'=>'nom',
-                'label'=>'Organisme',
-                'trim'=>true,
-                'attr'=> array('class'=>'form-control')
+            ->add('site', EntityType::class, [
+                'class' => Site::class,
+                'choice_label' => 'nom',
+                'label' => 'Organisme',
+                'trim' => true,
+                'attr' => array('class' => 'form-control')
             ])
-
-            ->add('lieu',EntityType::class,[
-                'class'=>Lieu::class,
-                'choice_label'=>'nomLieu',
-                'label'=>'Lieu',
-                'trim'=>true,
-                'attr'=> array('class'=>'form-control')
+            ->add('lieu', EntityType::class, [
+                'class' => Lieu::class,
+                'choice_label' => 'nomLieu',
+                'label' => 'Lieu',
+                'trim' => true,
+                'attr' => array('class' => 'form-control')
             ])
             ->add('enregistrer', SubmitType::class, [
-                'attr'=> array('class'=>'bouton'),
-
+                'attr' => array('class' => 'bouton'),
                 "label" => "Enregistrer",])
             ->add('publier', SubmitType::class, [
-            'attr'=> array('class'=>'bouton'),
-            "label" => "Publier",]);
-
+                'attr' => array('class' => 'bouton'),
+                'label' => "Publier",])
+            ->add('annuler', SubmitType::class, [
+                'attr' => array('class' => 'bouton'),
+                'label' => "Annuler"]);
     }
-
-
-
 
 
     public function configureOptions(OptionsResolver $resolver)

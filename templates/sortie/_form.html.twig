@@ -68,7 +68,12 @@
                 {{ form_row(form.publier) }}
             </div>
             <div class="col-4">
+                <!--
+                Si je ne parviens pas à faire fonctionner ma modification dans le contrôleur/le form pour faire une annulation,
+                remettre ce code pour faire fonctionner le bouton qui RN renvoie juste à l'index des sorties
                 <a href="{{ path('sortie_index') }}"><button class="bouton">Annuler</button></a>
+                -->
+                {{ form_row(form.annuler) }}
             </div>
             {{ form_end(form) }}
         {% for label, messages in app.flashes %}

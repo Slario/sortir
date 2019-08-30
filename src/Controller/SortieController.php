@@ -44,14 +44,14 @@ class SortieController extends Controller
         $lieu = new Lieu();
 
         $form = $this->createForm(SortieType::class, $sortie);
-        $formLieu = $this->createForm(LieuType::class,$lieu);
+        $formLieu = $this->createForm(LieuType::class, $lieu);
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('enregistrer')->isClicked()){
+            if ($form->get('enregistrer')->isClicked()) {
                 $sortie->setEtat('CRE');
-            }else{
+            } else {
                 $sortie->setEtat('OUV');
             }
 
@@ -66,7 +66,7 @@ class SortieController extends Controller
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
-            'formLieu' =>$formLieu->createView()
+            'formLieu' => $formLieu->createView()
         ]);
     }
 
@@ -94,12 +94,18 @@ class SortieController extends Controller
         $lieu = new Lieu();
 
         $form = $this->createForm(SortieType::class, $sortie);
-        $formLieu = $this->createForm(LieuType::class,$lieu);
+        $formLieu = $this->createForm(LieuType::class, $lieu);
 
         $formLieu->handleRequest($request);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('annuler')->isClicked()) {
+                return $this->redirectToRoute('sortie_cancel', [
+                    'sortie' => $sortie,
+                    'form' => $form->createView(),
+                ]);
+            }
             $this->getDoctrine()->getManager()->flush();
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être modifiée en base de donnée");
@@ -110,7 +116,7 @@ class SortieController extends Controller
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
-            'formLieu' =>$formLieu->createView()
+            'formLieu' => $formLieu->createView()
         ]);
     }
 
@@ -144,7 +150,7 @@ class SortieController extends Controller
      */
     public function delete(Request $request, Sortie $sortie): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $sortie->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($sortie);
             $entityManager->flush();
@@ -156,7 +162,8 @@ class SortieController extends Controller
     /**
      * @Route("/addParticipant/{id}", name="sortie_add_participant", methods={"GET"})
      */
-    public function sInscrireAUneSortie(EntityManagerInterface $entityManager, Sortie $sortie){
+    public function sInscrireAUneSortie(EntityManagerInterface $entityManager, Sortie $sortie)
+    {
 
         $user = $this->getUser();
         $inscription = new Inscription();
@@ -175,10 +182,11 @@ class SortieController extends Controller
     /**
      * @Route("/removeParticipant/{id}", name="sortie_remove_participant", methods={"GET"})
      */
-    public function seDesabonnerDUneSortie(EntityManagerInterface $entityManager, InscriptionRepository $inscriptionRepository, Sortie $sortie){
+    public function seDesabonnerDUneSortie(EntityManagerInterface $entityManager, InscriptionRepository $inscriptionRepository, Sortie $sortie)
+    {
 
         $user = $this->getUser();
-        $inscription = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
+        $inscription = $inscriptionRepository->findOneBy(['participant' => $user, 'sortie' => $sortie]);
         $user->removeInscription($inscription);
         $sortie->removeInscription($inscription);
         $entityManager->remove($inscription);
@@ -189,7 +197,6 @@ class SortieController extends Controller
         return $this->redirectToRoute('sortie_index');
 
     }
-
 
 
 }
