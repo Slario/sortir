@@ -22,7 +22,7 @@
                 <p>Nom</p>
                 <p>Téléphone</p>
                 <p>Email</p>
-                <p>Ville de rattachement</p>
+                <p>Site de rattachement</p>
             </div>
             <div class="col-6 droit">
                 {% if user.pseudo is empty %}
@@ -46,10 +46,10 @@
                     <p>0{{ user.telephone }}</p>
                 {% endif %}
                 <p>{{ user.email }}</p>
-                {% if user.villeRattachement is empty %}
+                {% if user.site is empty %}
                     <p>-</p>
                 {% else %}
-                    <p>{{ user.villeRattachement }}</p>
+                    <p>{{ user.site.nom }}</p>
                 {% endif %}
             </div>
         </div>
