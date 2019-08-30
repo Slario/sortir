@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Lieu;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,7 @@ class LieuController extends Controller
     public function index(LieuRepository $lieuRepository): Response
     {
         return $this->render('lieu/index.html.twig', [
-            'lieus' => $lieuRepository->findAll(),
+            'lieux' => $lieuRepository->findAll(),
         ]);
     }
 
@@ -90,5 +91,17 @@ class LieuController extends Controller
         }
 
         return $this->redirectToRoute('lieu_index');
+    }
+
+    /**
+     * @Route("/recherche/", name="lieu_recherche", methods={"GET"})
+     */
+    public function rechercher(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $rechercher = true;
+        $request = Request::createFromGlobals();
+        $recherche = $request->query->get('recherche');
+        $listeLieux = $entityManager->getRepository('App:Lieu')->getLieuByMotCle($recherche);
+        return $this->render("lieu/index.html.twig", ["listeLieux" => $listeLieux, "rechercher" => $rechercher]);
     }
 }

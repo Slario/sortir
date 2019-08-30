@@ -102,7 +102,7 @@ class SiteController extends Controller
         $rechercher = true;
         $request = Request::createFromGlobals();
         $recherche = $request->query->get('recherche');
-        $listeSites = $entityManager->getRepository('App:Site')->getByMotCle($recherche);
+        $listeSites = $entityManager->getRepository('App:Site')->getSiteByMotCle($recherche);
         /*$listeSites = $entityManager->getRepository('App:Site')->getByMotCle($recherche["nom"]);*/
         return $this->render("site/index.html.twig", ["listeSites" => $listeSites, "rechercher" => $rechercher]);
     }
