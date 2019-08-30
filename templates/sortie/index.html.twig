@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Sortie index</h1>
 
-    <table class="table">
+    <table class="table table-dark">
         <thead>
             <tr>
                 <th>Nom de la sortie</th>
@@ -47,13 +47,21 @@
                 </td>
                 <td>{{ sortie.organisateur }}</td>
                 <td>
-                    {% if sortie.estInscris(app.user) %}
-                    <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
-                    {% else %}
-                    <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                    <a href="{{ path('sortie_show', {'id': sortie.id}) }}">Afficher</a>
+                    {% if app.user == sortie.organisateur %}
+                        {% if sortie.etat == 'OUV' or sortie.etat == 'CRE' %}
+                            <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+                            {#<a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>  méthode ctrller à définir#}
+                            {% endif %}
+                        {% if sortie.etat == 'CRE' %}
+                            {#<a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>  méthode ctrller à définir#}
+                        {% endif %}
+                    {% elseif not sortie.estInscris(app.user) and sortie.nbInscriptions < sortie.nbInscriptionsMax and (sortie.etat == 'OUV' or sortie.etat == 'CRE')  %}
+                        <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                    {% elseif sortie.estInscris(app.user) and (sortie.etat == 'OUV' or sortie.etat == 'CRE') %}
+                        <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
                     {% endif %}
-                    <a href="{{ path('sortie_show', {'id': sortie.id}) }}">show</a>
-                    <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">edit</a>
+
                 </td>
             </tr>
         {% else %}

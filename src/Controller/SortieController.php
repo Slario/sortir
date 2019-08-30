@@ -40,6 +40,7 @@ class SortieController extends Controller
     public function new(Request $request): Response
     {
         $sortie = new Sortie();
+        $sortie->setOrganisateur($this->getUser());
         $lieu = new Lieu();
 
         $form = $this->createForm(SortieType::class, $sortie);
@@ -47,8 +48,13 @@ class SortieController extends Controller
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('enregistrer')->isClicked()){
+                $sortie->setEtat('CRE');
+            }else{
+                $sortie->setEtat('OUV');
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
