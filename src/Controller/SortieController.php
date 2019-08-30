@@ -100,10 +100,11 @@ class SortieController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('annuler')->isClicked()) {
+            if ($form->get('annuler')->isClicked() ) {
+
                 return $this->redirectToRoute('sortie_cancel', [
                     'sortie' => $sortie,
-                    'form' => $form->createView(),
+                    'id' => $sortie->getId(),
                 ]);
             }
             $this->getDoctrine()->getManager()->flush();
@@ -140,8 +141,8 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/cancel.html.twig', [
-
-            'form' => $form->createView(),
+            'sortie' => $sortie,
+            'form' => $form->createView()
         ]);
     }
 
