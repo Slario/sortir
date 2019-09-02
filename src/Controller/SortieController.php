@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Entity\Inscription;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
-use App\Entity\User;
 use App\Form\LieuType;
 use App\Form\SortieCancelType;
 use App\Form\SortieType;
@@ -99,7 +98,7 @@ class SortieController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $this->verifierOrganisateur($sortie)) {
-            if ($form->get('annuler')->isClicked() ) {
+            if ($form->get('annuler')->isClicked()) {
 
                 return $this->redirectToRoute('sortie_cancel', [
                     'sortie' => $sortie,
@@ -142,7 +141,6 @@ class SortieController extends Controller
             return $this->redirectToRoute('sortie_index');
         }
 
-        dump($sortie->getDateDebut());
         return $this->render('sortie/cancel.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
@@ -202,7 +200,8 @@ class SortieController extends Controller
 
     }
 
-    private function verifierOrganisateur(Sortie $sortie) {
+    private function verifierOrganisateur(Sortie $sortie)
+    {
 
         if ($sortie->getOrganisateur()->getId() == $this->getUser()->getId()) {
             return true;
