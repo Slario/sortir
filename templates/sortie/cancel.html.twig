@@ -6,11 +6,14 @@ Annuler une sortie
 
 {% block body %}
 <div class="container">
-    <div class="form-group ">
+    <div class="row">
+        <div class="col">
         Nom de la sortie : {{ sortie.nom }}
         <br>
         Date de la sortie : {{ sortie.dateDebut | date('dd/mm/yyyy') }}
+        <br>
         Nom de l'organisateur : {{ sortie.organisateur }}
+            <br>
         Lieu : {{ sortie.lieu.nomLieu }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}
 
         {{ form_start(form) }}
@@ -22,7 +25,7 @@ Annuler une sortie
         {{ form_row(form.submit) }}
 
         {{ form_end(form) }}
-
+        </div>
     </div>
 </div>
 

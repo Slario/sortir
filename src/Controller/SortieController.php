@@ -4,10 +4,9 @@ namespace App\Controller;
 
 
 use App\Entity\Inscription;
-
 use App\Entity\Lieu;
-
 use App\Entity\Sortie;
+use App\Entity\User;
 use App\Form\LieuType;
 use App\Form\SortieCancelType;
 use App\Form\SortieType;
@@ -18,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
 
 /**
  * @Route("")
@@ -89,7 +89,7 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sortie $sortie): Response
+    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $lieu = new Lieu();
 
@@ -101,6 +101,14 @@ class SortieController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('annuler')->isClicked() ) {
+                $isit = $entityManager->getRepository('App:Sortie')->getOrganisateurId($sortie);
+                dump($isit);
+                //$isit = $entityManager->getRepository('App:User')->verifierDroitsDeModificationSortie($sortie, $user);
+                if ($isit) {
+                    $this->addFlash("success", "u may cancel");
+                } elseif ($isit == false) {
+                    $this->addFlash("success", "u may not cancel");
+                }
 
                 return $this->redirectToRoute('sortie_cancel', [
                     'sortie' => $sortie,
@@ -132,7 +140,11 @@ class SortieController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //$this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $sortie->setEtat('ANN');
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+
 
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être annulée");
@@ -198,6 +210,8 @@ class SortieController extends Controller
         return $this->redirectToRoute('sortie_index');
 
     }
+
+
 
 
 }
