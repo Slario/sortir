@@ -21,6 +21,7 @@ require('bootstrap');
 $(document).ready(function() {
     $('[data-toggle="popover"]').popover();
 });
+
 // require the JavaScript
 require('bootstrap-star-rating');
 // require 2 CSS files needed

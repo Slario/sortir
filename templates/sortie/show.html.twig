@@ -63,12 +63,13 @@
         {% for inscrip in sortie.inscriptions %}
 
             <tr>
+                <td>
+                    <img class="avatarParticipant" alt="avatar"  src="{{ asset('uploads/photos/') }}{{ inscrip.participant.img }}">
+                </td>
                 <td>{{ inscrip.participant.pseudo }}</td>
-                <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
-            </tr>
-            <tr>
-                <td>{{ Inscrip.participant.pseudo }}</td>
-                <td>{{ Inscrip.participant.nom }} {{ Inscription.participant.prenom }}</td>
+                <td><a href="{{ path('user_show', {'id': inscrip.participant.id}) }}">
+                        {{ inscrip.participant.nom }}
+                        {{ inscrip.participant.prenom }}</a></td>
             </tr>
 
 

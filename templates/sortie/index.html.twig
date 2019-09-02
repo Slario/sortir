@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie index{% endblock %}
+{% block title %}Liste des sorties{% endblock %}
 
 {% block body %}
-    <h1>Sortie index</h1>
-
+    <h2>Liste des sorties</h2>
+<div class="text-center">
     <table class="table table-dark">
         <thead>
             <tr>
@@ -22,8 +22,8 @@
         {% for sortie in sorties %}
             <tr>
                 <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateDebut ? sortie.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ sortie.dateCloture ? sortie.dateCloture|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ sortie.dateDebut  ? sortie.dateDebut|date('d-m-Y H:i') : '' }}</td>
+                <td>{{ sortie.dateCloture ? sortie.dateCloture|date('d-m-Y H:i') : '' }}</td>
                 <td>{{ sortie.nbInscriptions }}/{{ sortie.nbInscriptionsMax }}</td>
                 <td>
                     {% if sortie.etat == 'CRE' %}
@@ -72,5 +72,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('sortie_new') }}">Create new</a>
+    <a href="{{ path('sortie_new') }}" class="bouton">
+        <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
+    </a>
+
+
+</div>
 {% endblock %}

@@ -8,9 +8,11 @@ use App\Entity\Inscription;
 use App\Entity\Lieu;
 
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Form\SortieCancelType;
 use App\Form\SortieType;
+use App\Form\VilleType;
 use App\Repository\InscriptionRepository;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,12 +44,16 @@ class SortieController extends Controller
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
         $lieu = new Lieu();
+        $ville = new Ville();
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);
+        $formVille = $this->createForm(VilleType::class,$ville);
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
+        $formVille->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('enregistrer')->isClicked()){
                 $sortie->setEtat('CRE');
@@ -63,10 +69,29 @@ class SortieController extends Controller
             return $this->redirectToRoute('sortie_index');
         }
 
+        if ($formLieu->isSubmitted() && $formLieu->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($lieu);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            $this->addFlash("success", "Le lieu vient d'être ajouté en base de donnée");
+        }
+
+        if ($formVille->isSubmitted() && $formVille->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($ville);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+            $this->addFlash("success", "La ville vient d'être ajoutée en base de donnée");
+        }
+
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
-            'formLieu' =>$formLieu->createView()
+            'formLieu' =>$formLieu->createView(),
+            'formVille' =>$formVille->createView()
         ]);
     }
 
@@ -92,12 +117,16 @@ class SortieController extends Controller
     public function edit(Request $request, Sortie $sortie): Response
     {
         $lieu = new Lieu();
+        $ville = new Ville();
+        $formVille = $this->createForm(VilleType::class,$ville);
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);
+        $formVille = $this->createForm(VilleType::class,$ville);
 
         $formLieu->handleRequest($request);
         $form->handleRequest($request);
+        $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -110,7 +139,8 @@ class SortieController extends Controller
         return $this->render('sortie/edit.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
-            'formLieu' =>$formLieu->createView()
+            'formLieu' =>$formLieu->createView(),
+            'formVille' =>$formVille->createView()
         ]);
     }
 

@@ -19,21 +19,16 @@
                 <input type="password" name="password" id="inputPassword" class="form-control" placeholder="" required>
             </div>
             <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
-{#
-                <div class="checkbox mb-3">
+                   value="{{ csrf_token('authenticate') }}">
+                <button class="bouton d-inline-block" type="submit">
+                    Connexion
+                </button>
+                <div class="checkbox mb-3 souvenir">
                     <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
+                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
                     </label>
                 </div>
-
-#}
-
-            <button class="bouton" type="submit">
-
-                Connexion
-            </button>
+                <a href="#">Mot de passe oublié ?</a>
         </form>
     </div>
 {% endblock %}
