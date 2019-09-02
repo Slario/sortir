@@ -109,6 +109,8 @@ class User implements UserInterface
      */
     private $inscriptions;
 
+
+
     public function __construct()
     {
         // Roles des utilisateurs
@@ -358,4 +360,11 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
+    }
+
+
 }
