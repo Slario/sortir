@@ -5,7 +5,25 @@ Annuler une sortie
 {% endblock %}
 
 {% block body %}
-<div class="container">
+<div class="text-center">
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Nom de la sortie</th>
+            <td>{{ sortie.nom }}</td>
+        </tr>
+        <tr>
+            <th>Date de la sortie :</th>
+            <td>Le {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y') }} </td>
+
+        </tr>
+
+
+        </tbody>
+
+
+    </table>
+
     <div class="row">
         <div class="col">
         Nom de la sortie : {{ sortie.nom }}

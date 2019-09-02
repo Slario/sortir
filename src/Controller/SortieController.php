@@ -142,6 +142,7 @@ class SortieController extends Controller
             return $this->redirectToRoute('sortie_index');
         }
 
+        dump($sortie->getDateDebut());
         return $this->render('sortie/cancel.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
