@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,20 +28,27 @@ class SortieType extends AbstractType
                 'label' => 'Nom de la sortie',
                 'attr' => array('class' => 'form-control')
             ])
-            ->add('dateDebut', DateTimeType::class, [
-                'label' => 'Date et heure de sortie'
 
-            ])
-            ->add('dateCloture', DateTimeType::class, [
-                'label' => 'Date limite d\'inscription'
-            ])
-            ->add('nbInscriptionsMax', IntegerType::class, [
-                'label' => 'Nombre de places',
-                'attr' => array('class' => 'form-control')
+            ->add('dateDebut', DateTimeType::class, array(
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+            ))
+            ->add('dateCloture', DateTimeType::class, array(
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+            ))
+            ->add('nbInscriptionsMax',IntegerType::class,[
+                'label'=>'Nombre de places',
+                'attr'=> array('class'=>'form-control')
+
             ])
             ->add('duree', NumberType::class, [
 
-                'label' => 'Durée en minutes'
+
+            ->add('duree',IntegerType::class,[
+                'label'=>'Durée en minutes',
+                'attr'=> array('class'=>'form-control', 'min'=>'0', 'step'=>'15'),
+
             ])
             ->add('descriptionInfos', TextareaType::class, [
                 'label' => 'Description et infos',
@@ -69,14 +77,17 @@ class SortieType extends AbstractType
                 'attr' => array('class' => 'form-control')
             ])
             ->add('enregistrer', SubmitType::class, [
-                'attr' => array('class' => 'bouton'),
-                "label" => "Enregistrer",])
+                'attr'=> array('class'=>'bouton'),
+                "label" => "Enregistrer"
+            ])
             ->add('publier', SubmitType::class, [
-                'attr' => array('class' => 'bouton'),
-                'label' => "Publier",])
+                'attr'=> array('class'=>'bouton'),
+                "label" => "Publier"
+            ])            
             ->add('annuler', SubmitType::class, [
                 'attr' => array('class' => 'bouton'),
-                'label' => "Annuler"]);
+                'label' => "Annuler"
+            ]);
     }
 
 

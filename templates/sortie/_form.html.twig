@@ -1,72 +1,58 @@
-
-<div class="container">
+<div class="text-center">
     <div class="form-group ">
         {{ form_start(form) }}
         <div class="row">
             <div class="col-6">
-            {{ form_label(form.nom)}}
-            {{form_widget(form.nom)}}
-            {{ form_errors(form.nom) }}
+                {{ form_label(form.nom) }}
+                {{ form_widget(form.nom) }}
+                {{ form_errors(form.nom) }}
 
-
-            {{ form_label(form.dateDebut)}}
-            {{form_widget(form.dateDebut)}}
-            {{ form_errors(form.dateDebut) }}
-
-
-            {{ form_label(form.dateCloture)}}
-            {{form_widget(form.dateCloture)}}
-            {{ form_errors(form.dateCloture) }}
-
-
-            {{ form_label(form.nbInscriptionsMax)}}
-            {{form_widget(form.nbInscriptionsMax)}}
-            {{ form_errors(form.nbInscriptionsMax) }}
-
-
-            {{ form_label(form.duree)}}
-            {{form_widget(form.duree)}}
-            {{ form_errors(form.duree) }}
-
-
-            {{ form_label(form.descriptionInfos)}}
-            {{form_widget(form.descriptionInfos)}}
-            {{ form_errors(form.descriptionInfos) }}
-            </div>
-            <div class="col-6">
-                {#{{ form_label(form.organisateur)}}
-            {{form_widget(form.organisateur)}}
-            {{ form_errors(form.organisateur) }}
-#}
-
-            {{ form_label(form.site)}}
-            {{form_widget(form.site)}}
-            {{ form_errors(form.site) }}
-
-            {{ form_label(form.lieu)}}
                 <div class="row">
                     <div class="col-6">
-            {{form_widget(form.lieu)}}
-            {{ form_errors(form.lieu) }}
-                </div>
+                        {{ form_label(form.dateDebut) }}
+                        {{ form_widget(form.dateDebut) }}
+                        {{ form_errors(form.dateDebut) }}
+                    </div>
                     <div class="col-6">
-                        <a><button type="button" data-toggle="modal" data-target="#ModalAjoutLieu" class="bouton">+</button></a>
+                        {{ form_label(form.dateCloture) }}
+                        {{ form_widget(form.dateCloture) }}
+                        {{ form_errors(form.dateCloture) }}
                     </div>
                 </div>
 
 
-            </div>
-        </div>
+                {{ form_label(form.nbInscriptionsMax) }}
+                {{ form_widget(form.nbInscriptionsMax) }}
+                {{ form_errors(form.nbInscriptionsMax) }}
 
 
-        <br>
-        <div class="row">
-            <div class="col-4">
-        {{ form_row(form.enregistrer) }}
+                {{ form_label(form.duree) }}
+                {{ form_widget(form.duree) }}
+                {{ form_errors(form.duree) }}
             </div>
-            <div class="col-4">
-                {{ form_row(form.publier) }}
-            </div>
+
+            <div class="col-6">
+                {{ form_label(form.descriptionInfos) }}
+                {{ form_widget(form.descriptionInfos) }}
+                {{ form_errors(form.descriptionInfos) }}
+
+                {{ form_label(form.site) }}
+                {{ form_widget(form.site) }}
+                {{ form_errors(form.site) }}
+
+                <div class="d-inline-block">
+                    {{ form_label(form.lieu) }}
+                    {{ form_widget(form.lieu) }}
+                    {{ form_errors(form.lieu) }}
+                </div>
+                <div class="d-inline-block">
+                    <a>
+                        <button type="button" data-toggle="modal" data-target="#ModalAjoutLieu" class="boutonPlus">
+                            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}">
+                        </button>
+                    </a>
+                </div>
+=======
             <div class="col-4">
                 <!--
                 Si je ne parviens pas à faire fonctionner ma modification dans le contrôleur/le form pour faire une annulation,
@@ -74,8 +60,21 @@
                 <a href="{# path('sortie_index') #}"><button class="bouton">Annuler</button></a>
                 -->
                 {{ form_row(form.annuler) }}
+
             </div>
-            {{ form_end(form) }}
+        </div>
+        <div class="d-inline-block">
+            {{ form_row(form.enregistrer) }}
+        </div>
+        <div class="d-inline-block">
+            {{ form_row(form.publier) }}
+        </div>
+        <div class="d-inline-block">
+            <a href="{{ path('sortie_index') }}">
+                <button class="bouton">Annuler</button>
+            </a>
+        </div>
+        {{ form_end(form) }}
         {% for label, messages in app.flashes %}
             {% for message in messages %}
                 <div class="alert-{{ label }}">
@@ -85,50 +84,130 @@
         {% endfor %}
 
 
-    </div>
-        <div class="modal fade" id="ModalAjoutLieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="ModalAjoutLieu" tabindex="-1" role="dialog" aria-labelledby="ModalAjoutLieu"
+             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un lieu</h5>
+                        <h5 class="modal-title" id="ModalAjoutLieu">Ajouter un lieu</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group ">
-                        {{ form_start(formLieu) }}
+                            {{ form_start(formLieu) }}
 
-                        {{ form_label(formLieu.nomLieu)}}
-                        {{form_widget(formLieu.nomLieu)}}
-                        {{ form_errors(formLieu.nomLieu) }}
-                            <br>
-                        {{ form_label(formLieu.rue)}}
-                        {{form_widget(formLieu.rue)}}
-                        {{ form_errors(formLieu.rue) }}
-                            <br>
-                        {{ form_label(formLieu.latitude)}}
-                        {{form_widget(formLieu.latitude)}}
-                        {{ form_errors(formLieu.latitude) }}
-                            <br>
-                        {{ form_label(formLieu.longitude)}}
-                        {{form_widget(formLieu.longitude)}}
-                        {{ form_errors(formLieu.longitude) }}
-                            <br>
+                            {{ form_label(formLieu.ville) }}
+                            <div class="d-inline-block">
+                                <a>
+                                    <button type="button" data-toggle="modal" data-target="#ModalAjoutVille"
+                                            class="boutonPlus">
+                                        <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}">
+                                    </button>
+                                </a>
+                            </div>
+                            {{ form_widget(formLieu.ville) }}
+                            {{ form_errors(formLieu.ville) }}
 
+                            {{ form_label(formLieu.nomLieu) }}
+                            {{ form_widget(formLieu.nomLieu) }}
+                            {{ form_errors(formLieu.nomLieu) }}
 
-                        {{ form_end(formLieu) }}
+                            {{ form_label(formLieu.rue) }}
+                            {{ form_widget(formLieu.rue) }}
+                            {{ form_errors(formLieu.rue) }}
+
+                            {{ form_label(formLieu.latitude) }}
+                            {{ form_widget(formLieu.latitude) }}
+                            {{ form_errors(formLieu.latitude) }}
+
+                            {{ form_label(formLieu.longitude) }}
+                            {{ form_widget(formLieu.longitude) }}
+                            {{ form_errors(formLieu.longitude) }}
+
+                            <button type="button" class="btn bouton" data-dismiss="modal">Fermer</button>
+                            <button class="bouton d-inline-block">{{ button_label|default('Ajouter') }}</button>
+                            {{ form_end(formLieu) }}
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bouton" data-dismiss="modal">Fermer</button>
-
-
-                        <button type="button" class="btn bouton"><a href="{{ path('lieu_new') }}">Ajouter</a></button>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="ModalAjoutVille" tabindex="-1" role="dialog" aria-labelledby="ModalAjoutVille"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalAjoutVille">Ajouter une Ville</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group ">
+                            {{ form_start(formVille) }}
+
+
+                            {{ form_label(formVille.nom) }}
+                            {{ form_widget(formVille.nom) }}
+                            {{ form_errors(formVille.nom) }}
+
+                            {{ form_label(formVille.codePostal) }}
+                            {{ form_widget(formVille.codePostal) }}
+                            {{ form_errors(formVille.codePostal) }}
+
+                            <button type="button" class="btn bouton" data-dismiss="modal">Fermer</button>
+                            <button class="bouton d-inline-block">{{ button_label|default('Ajouter') }}</button>
+                            {{ form_end(formVille) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
     </div>
 </div>
+<script>
+    $('#ModalAjoutLieu').on('shown.bs.modal', function () {
+        let modal = $(this);
+        $.ajax('{{ path('lieu_new') }}', {
+            success: function (data) {
+                modal.find('.modal-body').html(data);
+            }
+        });
+    });
 
+    $(document).on('submit', 'form', function (e) {
+        // il est impératif de commencer avec cette méthode qui va empêcher le navigateur d'envoyer le formulaire lui-même
+        e.preventDefault();
+
+        const $form = $(e.target);
+        const modal = $('#ModalAjoutLieu');
+
+        const title = $('#article_title').val();
+
+        const $submitButton = $form.find(':submit');
+        $submitButton.html('<i class="fas fa-spinner fa-pulse"></i>');
+        $submitButton.prop('disabled', true);
+
+        // ajaxSubmit du plugin ajaxForm nécessaire pour l'upload de fichier
+        $form.ajaxSubmit({
+            type: 'post',
+            success: function (data) {
+                if (data === 'ok') {
+                    $('ul').append('<li>' + title + '</li>');
+                    modal.modal('toggle');
+                } else {
+                    modal.find('.modal-body').html(data);
+                }
+            },
+            error: function (jqXHR, status, error) {
+                $submitButton.html(button.data('label'));
+                $submitButton.prop('disabled', false);
+            }
+        });
+    });
+</script>
