@@ -110,10 +110,12 @@ class User implements UserInterface
      */
     private $inscriptions;
 
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur", orphanRemoval=true)
      */
     private $orgaSortie;
+
 
     public function __construct()
     {
@@ -364,6 +366,12 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+
+    public function getInscriptions()
+    {
+        return $this->inscriptions;
     }
 
     /**

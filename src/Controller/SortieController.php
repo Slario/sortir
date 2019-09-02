@@ -9,6 +9,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Form\SortieCancelType;
+use App\Form\SortieSearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\InscriptionRepository;
@@ -25,12 +26,47 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends Controller
 {
     /**
-     * @Route("", name="sortie_index", methods={"GET"})
+     * @Route("", name="sortie_index", methods={"GET", "POST"})
      */
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(SortieRepository $sortieRepository, Request $request): Response
     {
+
+
+
+        $form = $this->createForm(SortieSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $site = $form->get('site')->getData();
+
+            $nom = $form->get('nom')->getData();
+
+            $dateMin = $form->get('dateMin')->getData();
+
+            $dateMax = $form->get('dateMax')->getData();
+
+            $checkbox = $form->get('checkbox')->getData();
+
+            $user = $this->getUser();
+            if ($site || $nom || $dateMin || $dateMax || $checkbox) {
+
+
+                $sorties = $sortieRepository->searchSorties($site, $nom, $dateMin, $dateMax, $checkbox, $user);
+                dump($sorties);
+            }else {
+
+                $sorties = $sortieRepository->findAll();
+            }
+            return $this->render('sortie/index.html.twig', [
+                'sorties' => $sorties,
+                'form' => $form->createView(),
+            ]);
+        }
+
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
