@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Sortie;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -14,7 +15,13 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function getUserByMotCle($recherche) {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, User::class);
+    }
+
+    public function getUserByMotCle($recherche)
+    {
         $req = $this->createQueryBuilder('u')
             ->select('u')
             ->where('u.nom like :recherche')
@@ -23,9 +30,11 @@ class UserRepository extends ServiceEntityRepository
         $result = $query->getResult();
         return $result;
     }
-    public function __construct(ManagerRegistry $registry)
+
+    public function verifierDroitsDeModificationSortie(Sortie $sortie, User $user)
     {
-        parent::__construct($registry, User::class);
+
+        return $user->getId() == $sortie->getOrganisateur()->getOrgaSortie()->get('id');
     }
 
     // /**

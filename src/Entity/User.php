@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -110,6 +111,11 @@ class User implements UserInterface
     private $inscriptions;
 
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="organisateur", orphanRemoval=true)
+     */
+    private $orgaSortie;
+
 
     public function __construct()
     {
@@ -117,6 +123,7 @@ class User implements UserInterface
         $this->roles = ['ROLE_USER'];
         $this->actif = 1;
         $this->inscriptions = new ArrayCollection();
+        $this->orgaSortie = new ArrayCollection();
 
     }
 
@@ -361,10 +368,40 @@ class User implements UserInterface
         return $this;
     }
 
+
     public function getInscriptions()
     {
         return $this->inscriptions;
     }
 
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getOrgaSortie(): Collection
+    {
+        return $this->orgaSortie;
+    }
 
+    public function addOrgaSortie(Sortie $orgaSortie): self
+    {
+        if (!$this->orgaSortie->contains($orgaSortie)) {
+            $this->orgaSortie[] = $orgaSortie;
+            $orgaSortie->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrgaSortie(Sortie $orgaSortie): self
+    {
+        if ($this->orgaSortie->contains($orgaSortie)) {
+            $this->orgaSortie->removeElement($orgaSortie);
+            // set the owning side to null (unless already changed)
+            if ($orgaSortie->getOrganisateur() === $this) {
+                $orgaSortie->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
 }
