@@ -6,6 +6,8 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -69,7 +71,6 @@ class Sortie
      */
     private $motif;
 
-    
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Site", inversedBy="sorties")
@@ -106,23 +107,64 @@ class Sortie
         $this->setEtat('CRE');
     }
 
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setSortie($this);
+        }
 
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->contains($inscription)) {
+            $this->inscriptions->removeElement($inscription);
+            // set the owning side to null (unless already changed)
+            if ($inscription->getSortie() === $this) {
+                $inscription->setSortie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getnbInscriptions()
+    {
+
+        if (!$this->getInscriptions()->isEmpty()) {
+            $count = $this->getInscriptions()->indexOf($this->getInscriptions()->last()) + 1;
+        } else {
+            $count = 0;
+        }
+
+        return $count;
+    }
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function estInscris($user)
+    {
+        $inscris = false;
+        foreach ($this->getInscriptions() as $ins) {
+            if ($ins->getParticipant() === $user) {
+                $inscris = true;
+                break;
+            }
+        }
+        return $inscris;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
     }
 
     public function getDateDebut(): ?DateTimeInterface
@@ -185,7 +227,6 @@ class Sortie
         return $this;
     }
 
-
     public function getUrlPhoto(): ?string
     {
         return $this->urlPhoto;
@@ -230,7 +271,7 @@ class Sortie
     public function setEtat(?string $etat): self
     {
         if (!in_array($etat, array(self::ETAT_ANNULLE, self::ETAT_CREE, self::ETAT_EN_COURS, self::ETAT_OUVERTE, self::ETAT_PASSEE))) {
-            throw new \InvalidArgumentException("Etat invalide");
+            throw new InvalidArgumentException("Etat invalide");
         }
         $this->etat = $etat;
 
@@ -249,65 +290,24 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection|Inscription[]
-     */
-    public function getInscriptions(): Collection
-    {
-        return $this->inscriptions;
-    }
 
-    public function addInscription(Inscription $inscription): self
-    {
-        if (!$this->inscriptions->contains($inscription)) {
-            $this->inscriptions[] = $inscription;
-            $inscription->setSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInscription(Inscription $inscription): self
-    {
-        if ($this->inscriptions->contains($inscription)) {
-            $this->inscriptions->removeElement($inscription);
-            // set the owning side to null (unless already changed)
-            if ($inscription->getSortie() === $this) {
-                $inscription->setSortie(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getnbInscriptions(){
-
-        if (!$this->getInscriptions()->isEmpty()) {
-            $count = $this->getInscriptions()->indexOf($this->getInscriptions()->last()) + 1;
-        }else{
-            $count = 0;
-        }
-
-        return $count;
-    }
-
-    public function estInscris($user)
-    {
-        $inscris = false;
-        foreach($this->getInscriptions() as $ins){
-            if ($ins->getParticipant() === $user){
-                $inscris = true;
-                break;
-            }
-        }
-        return $inscris;
-    }
 
     public function __toString(): ?string
     {
-       return $this->getNom();
+        return $this->getNom();
     }
 
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
 
     public function getMotif(): ?string
     {
@@ -321,18 +321,5 @@ class Sortie
 
         return $this;
     }
-
-    public function getOrganisatrice(): ?User
-    {
-        return $this->organisatrice;
-    }
-
-    public function setOrganisatrice(?User $organisatrice): self
-    {
-        $this->organisatrice = $organisatrice;
-
-        return $this;
-    }
-
 
 }

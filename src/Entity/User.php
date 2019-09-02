@@ -378,7 +378,7 @@ class User implements UserInterface
     {
         if (!$this->orgaSortie->contains($orgaSortie)) {
             $this->orgaSortie[] = $orgaSortie;
-            $orgaSortie->setOrganisatrice($this);
+            $orgaSortie->setOrganisateur($this);
         }
 
         return $this;
@@ -389,8 +389,8 @@ class User implements UserInterface
         if ($this->orgaSortie->contains($orgaSortie)) {
             $this->orgaSortie->removeElement($orgaSortie);
             // set the owning side to null (unless already changed)
-            if ($orgaSortie->getOrganisatrice() === $this) {
-                $orgaSortie->setOrganisatrice(null);
+            if ($orgaSortie->getOrganisateur() === $this) {
+                $orgaSortie->setOrganisateur(null);
             }
         }
 

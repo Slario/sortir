@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query\ResultSetMapping;
+
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)

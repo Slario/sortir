@@ -1,30 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Annuler une sortie
+    Annuler une sortie
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="form-group ">
-        Nom de la sortie : {{ sortie.nom }}
+    <div class="text-center">
         <br>
-        Date de la sortie : {{ sortie.dateDebut | date('dd/mm/yyyy') }}
-        Nom de l'organisateur : {{ sortie.organisateur }}
-        Lieu : {{ sortie.lieu.nomLieu }} {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Nom de la sortie</th>
+                <td>{{ sortie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Date de la sortie :</th>
+                <td>Le {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', null, 'EEEE d MMMM Y \à H:mm') }} </td>
+            </tr>
+            <tr>
+                <th>Organisateur.trice :</th>
+                <td>{{ sortie.organisateur }}</td>
+            </tr>
+            <tr>
+                <th>Lieu :</th>
+                <td>{{ sortie.lieu.nomLieu }}</td>
+            </tr>
+            <tr>
+                <th>Adresse :</th>
+                <td> {{ sortie.lieu.rue }} {{ sortie.lieu.ville.codePostal }} {{ sortie.lieu.ville.nom }}</td>
+            </tr>
+            </tbody>
 
+
+        </table>
         {{ form_start(form) }}
 
-        {{ form_label(form.motif)}}
-        {{form_widget(form.motif)}}
+        {{ form_label(form.motif) }}
+        {{ form_widget(form.motif) }}
         {{ form_errors(form.motif) }}
 
         {{ form_row(form.submit) }}
 
         {{ form_end(form) }}
-
     </div>
-</div>
+
+
+
+
 
 {% endblock %}
 

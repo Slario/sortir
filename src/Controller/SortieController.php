@@ -4,9 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\Inscription;
-
 use App\Entity\Lieu;
-
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
@@ -50,14 +48,15 @@ class SortieController extends Controller
         $formLieu = $this->createForm(LieuType::class,$lieu);
         $formVille = $this->createForm(VilleType::class,$ville);
 
+
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
         $formVille->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('enregistrer')->isClicked()){
+            if ($form->get('enregistrer')->isClicked()) {
                 $sortie->setEtat('CRE');
-            }else{
+            } else {
                 $sortie->setEtat('OUV');
             }
 
@@ -90,6 +89,7 @@ class SortieController extends Controller
         return $this->render('sortie/new.html.twig', [
             'sortie' => $sortie,
             'form' => $form->createView(),
+
             'formLieu' =>$formLieu->createView(),
             'formVille' =>$formVille->createView()
         ]);
@@ -114,7 +114,7 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sortie $sortie): Response
+    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
     {
         $lieu = new Lieu();
         $ville = new Ville();
@@ -128,7 +128,14 @@ class SortieController extends Controller
         $form->handleRequest($request);
         $formVille->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->verifierOrganisateur($sortie)) {
+            if ($form->get('annuler')->isClicked()) {
+
+                return $this->redirectToRoute('sortie_cancel', [
+                    'sortie' => $sortie,
+                    'id' => $sortie->getId(),
+                ]);
+            }
             $this->getDoctrine()->getManager()->flush();
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être modifiée en base de donnée");
@@ -141,6 +148,7 @@ class SortieController extends Controller
             'form' => $form->createView(),
             'formLieu' =>$formLieu->createView(),
             'formVille' =>$formVille->createView()
+
         ]);
     }
 
@@ -153,9 +161,12 @@ class SortieController extends Controller
         $form = $this->createForm(SortieCancelType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->verifierOrganisateur($sortie)) {
 
-            //$this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $sortie->setEtat('ANN');
+            $entityManager->persist($sortie);
+            $entityManager->flush();
 
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être annulée");
@@ -164,7 +175,7 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/cancel.html.twig', [
-
+            'sortie' => $sortie,
             'form' => $form->createView(),
         ]);
     }
@@ -174,7 +185,7 @@ class SortieController extends Controller
      */
     public function delete(Request $request, Sortie $sortie): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $sortie->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($sortie);
             $entityManager->flush();
@@ -186,7 +197,8 @@ class SortieController extends Controller
     /**
      * @Route("/addParticipant/{id}", name="sortie_add_participant", methods={"GET"})
      */
-    public function sInscrireAUneSortie(EntityManagerInterface $entityManager, Sortie $sortie){
+    public function sInscrireAUneSortie(EntityManagerInterface $entityManager, Sortie $sortie)
+    {
 
         $user = $this->getUser();
         $inscription = new Inscription();
@@ -205,10 +217,11 @@ class SortieController extends Controller
     /**
      * @Route("/removeParticipant/{id}", name="sortie_remove_participant", methods={"GET"})
      */
-    public function seDesabonnerDUneSortie(EntityManagerInterface $entityManager, InscriptionRepository $inscriptionRepository, Sortie $sortie){
+    public function seDesabonnerDUneSortie(EntityManagerInterface $entityManager, InscriptionRepository $inscriptionRepository, Sortie $sortie)
+    {
 
         $user = $this->getUser();
-        $inscription = $inscriptionRepository->findOneBy(['participant'=>$user, 'sortie'=>$sortie]);
+        $inscription = $inscriptionRepository->findOneBy(['participant' => $user, 'sortie' => $sortie]);
         $user->removeInscription($inscription);
         $sortie->removeInscription($inscription);
         $entityManager->remove($inscription);
@@ -220,6 +233,14 @@ class SortieController extends Controller
 
     }
 
+    private function verifierOrganisateur(Sortie $sortie)
+    {
+
+        if ($sortie->getOrganisateur()->getId() == $this->getUser()->getId()) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
