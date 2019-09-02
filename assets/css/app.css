@@ -106,6 +106,10 @@ h2{
     width: 150px;
     margin-bottom: 30px;
 }
+.recherche{
+    width: 35px;
+    height: 35px;
+}
 .boutonPlus {
     color: white;
     text-align: center;
