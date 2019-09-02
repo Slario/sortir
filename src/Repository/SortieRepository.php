@@ -49,14 +49,4 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function getOrganisateurId(Sortie $sortie)
-    {
-        $em = $this->getEntityManager();
-        $rsm = new ResultSetMapping();
-        $query = $em->createNativeQuery('SELECT organisateur_id FROM sortie WHERE sortie.id = ?', $rsm);
-        $query->setParameter(1, $sortie->getId());
-        $query->getResult();
-
-    }
 }

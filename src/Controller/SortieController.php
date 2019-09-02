@@ -17,7 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\UserRepository;
 
 /**
  * @Route("")
@@ -99,16 +98,8 @@ class SortieController extends Controller
         $formLieu->handleRequest($request);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->verifierOrganisateur($sortie)) {
             if ($form->get('annuler')->isClicked() ) {
-                $isit = $entityManager->getRepository('App:Sortie')->getOrganisateurId($sortie);
-                dump($isit);
-                //$isit = $entityManager->getRepository('App:User')->verifierDroitsDeModificationSortie($sortie, $user);
-                if ($isit) {
-                    $this->addFlash("success", "u may cancel");
-                } elseif ($isit == false) {
-                    $this->addFlash("success", "u may not cancel");
-                }
 
                 return $this->redirectToRoute('sortie_cancel', [
                     'sortie' => $sortie,
@@ -138,13 +129,12 @@ class SortieController extends Controller
         $form = $this->createForm(SortieCancelType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->verifierOrganisateur($sortie)) {
 
             $entityManager = $this->getDoctrine()->getManager();
             $sortie->setEtat('ANN');
             $entityManager->persist($sortie);
             $entityManager->flush();
-
 
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être annulée");
@@ -154,7 +144,7 @@ class SortieController extends Controller
 
         return $this->render('sortie/cancel.html.twig', [
             'sortie' => $sortie,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -211,7 +201,13 @@ class SortieController extends Controller
 
     }
 
+    private function verifierOrganisateur(Sortie $sortie) {
 
+        if ($sortie->getOrganisateur()->getId() == $this->getUser()->getId()) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
