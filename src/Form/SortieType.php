@@ -42,9 +42,6 @@ class SortieType extends AbstractType
                 'attr'=> array('class'=>'form-control')
 
             ])
-            ->add('duree', NumberType::class, [
-
-
             ->add('duree',IntegerType::class,[
                 'label'=>'Durée en minutes',
                 'attr'=> array('class'=>'form-control', 'min'=>'0', 'step'=>'15'),
