@@ -4,19 +4,20 @@
 
 {% block body %}
     <h2>Liste des sites</h2>
-    <h3>Filtrer les sites</h3>
-    <form action="{{ path('site_recherche')}}" method="GET">
-        <div class="d-inline-block">
-            <input type="text" name="recherche" class="form-control">
-        </div>
-        <div class="d-inline-block">
-            <input type="submit" value="Rechercher">
-            <img alt="plus" class="plus" src="{{ asset('build/images/loupe.svg') }}">
-        </div>
 
+    <div id="path_adrSite" data-path="{{ path('site_recherche') }}"></div>
+    <h3>Filtrer les sites</h3>
+    <form id="rechercheSite">
+        <div class="d-inline-block">
+            <input type="text" name="recherche" class="form-control" id="rechercher">
+        </div>
+        <div class="d-inline-block">
+            <img alt="rechercher" class="recherche" src="{{ asset('build/images/loupe.svg') }}">
+        </div>
     </form>
 
-    {% if rechercher is defined %}
+    <div id="resultat">
+        {% if rechercher is defined %}
         <div class="text-center">
             <table class="table table-dark">
                 <thead>
@@ -49,7 +50,7 @@
                 </tbody>
             </table>
 
-    {% else %}
+            {% else %}
             <div class="text-center">
                 <table class="table table-dark">
                     <thead>
@@ -86,12 +87,13 @@
                     </tbody>
                 </table>
 
-    {% endif %}
+                {% endif %}
 
 
-
-        <a href="{{ path('site_new') }}" class="bouton">
-            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter un site
-        </a>
+                <a href="{{ path('site_new') }}" class="bouton">
+                    <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter un site
+                </a>
+            </div>
+        </div>
     </div>
 {% endblock %}

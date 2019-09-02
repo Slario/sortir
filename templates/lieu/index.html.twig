@@ -4,107 +4,112 @@
 
 {% block body %}
     <h2>Liste des lieux</h2>
-<h3>Filtrer les lieux</h3>
-<form action="{{ path('lieu_recherche') }}" method="GET">
-    <div class="d-inline-block">
-        <input type="text" name="recherche" class="form-control">
-    </div>
-    <div class="d-inline-block">
-        <input type="submit" value="Rechercher">
-        <img alt="plus" class="plus" src="{{ asset('build/images/loupe.svg') }}">
-    </div>
-</form>
+
+    <div id="path_adrLieu" data-path="{{ path('lieu_recherche') }}"></div>
+    <h3>Filtrer les lieux</h3>
+    <form id="rechercheLieu">
+        <div class="d-inline-block">
+            <input type="text" name="recherche" class="form-control" id="rechercher">
+        </div>
+        <div class="d-inline-block">
+            <img alt="rechercher" class="recherche" src="{{ asset('build/images/loupe.svg') }}">
+        </div>
+    </form>
 
 
-{% if rechercher is defined %}
-<div class="text-center">
-    <table class="table table-dark">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Ville</th>
-            <th>Rue</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for lieu in listeLieux %}
-            <tr>
-                <td>{{ lieu.id }}</td>
-                <td>{{ lieu.nomLieu }}</td>
-                <td>{{ lieu.Ville }}</td>
-                <td>{{ lieu.latitude }}</td>
-                <td>{{ lieu.longitude }}</td>
-                <td>{{ lieu.rue }}</td>
-                <td>
-                    <div class="d-inline-block">
-                        <a href="{{ path('lieu_show', {'id': lieu.id}) }}" class="btn btn-primary">
-                            <img alt="plus" class="plus" src="{{ asset('build/images/look.svg') }}"></a>
-                    </div>
-                    <div class="d-inline-block">
-                        <a href="{{ path('lieu_edit', {'id': lieu.id}) }}" class="btn btn-success">
-                            <img alt="plus" class="plus" src="{{ asset('build/images/update.svg') }}"></a>
-                    </div>
-                    <div class="d-inline-block">
-                        {{ include('lieu/_delete_form.html.twig') }}
-                    </div>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    {% else %}
-    <div class="text-center">
-        <table class="table table-dark">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Ville</th>
-                <th>Rue</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for lieu in lieux %}
+    <div id="resultat">
+        {% if rechercher is defined %}
+        <div class="text-center">
+            <table class="table table-dark">
+                <thead>
                 <tr>
-                    <td>{{ lieu.id }}</td>
-                    <td>{{ lieu.nomLieu }}</td>
-                    <td>{{ lieu.Ville }}</td>
-                    <td>{{ lieu.rue }}</td>
-                    <td>{{ lieu.latitude }}</td>
-                    <td>{{ lieu.longitude }}</td>
-                    <td>
-                        <div class="d-inline-block">
-                            <a href="{{ path('lieu_show', {'id': lieu.id}) }}" class="btn btn-primary">
-                                <img alt="plus" class="plus" src="{{ asset('build/images/look.svg') }}"></a>
-                        </div>
-                        <div class="d-inline-block">
-                            <a href="{{ path('lieu_edit', {'id': lieu.id}) }}" class="btn btn-success">
-                                <img alt="plus" class="plus" src="{{ asset('build/images/update.svg') }}"></a>
-                        </div>
-                        <div class="d-inline-block">
-                            {{ include('lieu/_delete_form.html.twig') }}
-                        </div>
-                    </td>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>Ville</th>
+                    <th>Rue</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>actions</th>
                 </tr>
+                </thead>
+                <tbody>
+                {% for lieu in listeLieux %}
+                    <tr>
+                        <td>{{ lieu.id }}</td>
+                        <td>{{ lieu.nomLieu }}</td>
+                        <td>{{ lieu.Ville }}</td>
+                        <td>{{ lieu.latitude }}</td>
+                        <td>{{ lieu.longitude }}</td>
+                        <td>{{ lieu.rue }}</td>
+                        <td>
+                            <div class="d-inline-block">
+                                <a href="{{ path('lieu_show', {'id': lieu.id}) }}" class="btn btn-primary">
+                                    <img alt="plus" class="plus" src="{{ asset('build/images/look.svg') }}"></a>
+                            </div>
+                            <div class="d-inline-block">
+                                <a href="{{ path('lieu_edit', {'id': lieu.id}) }}" class="btn btn-success">
+                                    <img alt="plus" class="plus" src="{{ asset('build/images/update.svg') }}"></a>
+                            </div>
+                            <div class="d-inline-block">
+                                {{ include('lieu/_delete_form.html.twig') }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
             {% else %}
-                <tr>
-                    <td colspan="3">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+            <div class="text-center">
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nom</th>
+                        <th>Ville</th>
+                        <th>Rue</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for lieu in lieux %}
+                        <tr>
+                            <td>{{ lieu.id }}</td>
+                            <td>{{ lieu.nomLieu }}</td>
+                            <td>{{ lieu.Ville }}</td>
+                            <td>{{ lieu.rue }}</td>
+                            <td>{{ lieu.latitude }}</td>
+                            <td>{{ lieu.longitude }}</td>
+                            <td>
+                                <div class="d-inline-block">
+                                    <a href="{{ path('lieu_show', {'id': lieu.id}) }}" class="btn btn-primary">
+                                        <img alt="plus" class="plus" src="{{ asset('build/images/look.svg') }}"></a>
+                                </div>
+                                <div class="d-inline-block">
+                                    <a href="{{ path('lieu_edit', {'id': lieu.id}) }}" class="btn btn-success">
+                                        <img alt="plus" class="plus" src="{{ asset('build/images/update.svg') }}"></a>
+                                </div>
+                                <div class="d-inline-block">
+                                    {{ include('lieu/_delete_form.html.twig') }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-        {% endif %}
+                {% endif %}
 
-        <a href="{{ path('lieu_new') }}" class="bouton">
-            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter un lieu
-        </a>
-        {% endblock %}
+                <a href="{{ path('lieu_new') }}" class="bouton">
+                    <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter un lieu
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
