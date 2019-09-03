@@ -83,10 +83,19 @@ class SortieRepository extends ServiceEntityRepository
             ;
             dump($result->getQuery());
         return $result->getQuery()->getResult();
-
-
     }
 
+    public function getByVille($ville){
+        $req = $this->createQueryBuilder('s')
+            ->select('s')
+            ->where('s.lieu = :ville')
+            ->setParameter('ville', "9");
+        $query = $req->getQuery();
+        $result = $query->getResult();
+        dump($result);
+
+        return $result;
+    }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

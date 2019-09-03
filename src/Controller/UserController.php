@@ -104,6 +104,7 @@ class UserController extends Controller
         $rechercher = true;
         $request = Request::createFromGlobals();
         $recherche = $request->query->get('recherche');
+        dump($recherche);
         $listeUsers = $entityManager->getRepository('App:User')->getUserByMotCle($recherche);
         return $this->render("user/index.html.twig", ["listeUsers" => $listeUsers, "rechercher" => $rechercher]);
     }

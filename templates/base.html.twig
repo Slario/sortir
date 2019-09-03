@@ -9,13 +9,6 @@
     {{ encore_entry_link_tags('app') }}
 </head>
 <body>
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert-{{ label }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
 <div class="container-fluid" id="containerNav">
     <header>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -77,6 +70,15 @@
 </div>
 
 <div class="container">
+    <div id="messageFlash">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </div>

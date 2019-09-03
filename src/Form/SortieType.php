@@ -6,6 +6,7 @@ use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\User;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -42,7 +43,6 @@ class SortieType extends AbstractType
                 'attr'=> array('class'=>'form-control')
 
             ])
-            ->add('duree', NumberType::class, [
 
 
             ->add('duree',IntegerType::class,[
@@ -62,20 +62,21 @@ class SortieType extends AbstractType
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
             ])*/
-            ->add('site', EntityType::class, [
-                'class' => Site::class,
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
                 'choice_label' => 'nom',
-                'label' => 'Organisme',
+                'label' => 'Ville',
                 'trim' => true,
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'mapped' => false,
             ])
-            ->add('lieu', EntityType::class, [
+            /*->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nomLieu',
                 'label' => 'Lieu',
                 'trim' => true,
                 'attr' => array('class' => 'form-control')
-            ])
+            ])*/
             ->add('enregistrer', SubmitType::class, [
                 'attr'=> array('class'=>'bouton'),
                 "label" => "Enregistrer"
