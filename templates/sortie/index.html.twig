@@ -4,25 +4,66 @@
 
 {% block body %}
 
+    <h1>Les sorties proposées</h1>
 
+    <div class="text-center formSearch col-12">
+        <div class="form-group ">
+            {{ form_start(form) }}
 
-    {{ form_start(form) }}
-    {{ form_row(form.site) }}
-    {{ form_row((form.nom)) }}
-    {{ form_row((form.dateMin)) }}
-    {{ form_row((form.dateMax)) }}
-    {{ form_row((form.checkbox)) }}
-    {{ form_row((form.rechercher)) }}
-    {{ form_end(form) }}
+            <div class="row">
+                <div class="col-md-4 col-12">
+                    <div class="">
+                        {{ form_row(form.site) }}
+                    </div>
+                    <div class="">
+                        {{ form_row((form.nom)) }}
+                    </div>
+                </div>
+                <div class="col-md-4 col-12">
+                    <div class="">
+                        {{ form_row((form.dateMin)) }}
+                    </div>
+                    <div class="">
+                        {{ form_row((form.dateMax)) }}
+                    </div>
+                </div>
 
-    <h1>Sortie index</h1>
+                <div class="col-md-4 col-12 text-left float-right">
+                    <table class="tableCustom">
 
+                        {% for i in 0..(form.checkbox|length - 1) %}
+                            <tr>
+                                <td>{{ form_widget(form.checkbox[i]) }}</td>
+                                <td>{{ form_label(form.checkbox[i]) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div>
 
-    <h2>Liste des sorties</h2>
-<div class="text-center">
+            </div>
+            <div class="col-12">
+                {{ form_row((form.rechercher)) }}
+            </div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
 
-    <table class="table table-dark">
-        <thead>
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+    <h2>Sorties sélectionnées</h2>
+    <div class="text-center">
+
+        <table class="table table-dark">
+            <thead>
             <tr>
                 <th>Nom de la sortie</th>
                 <th>Date de la sortie</th>
@@ -33,65 +74,66 @@
                 <th>Organisateur</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for sortie in sorties %}
-            <tr>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateDebut  ? sortie.dateDebut|date('d-m-Y H:i') : '' }}</td>
-                <td>{{ sortie.dateCloture ? sortie.dateCloture|date('d-m-Y H:i') : '' }}</td>
-                <td>{{ sortie.nbInscriptions }}/{{ sortie.nbInscriptionsMax }}</td>
-                <td>
-                    {% if sortie.etat == 'CRE' %}
-                    En création
-                    {% elseif sortie.etat == 'OUV' %}
-                    Ouverte
-                    {% elseif sortie.etat == 'ENC' %}
-                    En cours
-                    {% elseif sortie.etat == 'PAS' %}
-                    Passée
-                    {% elseif sortie.etat == 'ANN' %}
-                    Fermée
-                {% endif %}
-                </td>
-                <td>
-                    {% if sortie.estInscris(app.user) %}
-                     X
+            </thead>
+            <tbody>
+            {% for sortie in sorties %}
+                <tr>
+                    <td>{{ sortie.nom }}</td>
+                    <td>{{ sortie.dateDebut  ? sortie.dateDebut|date('d-m-Y H:i') : '' }}</td>
+                    <td>{{ sortie.dateCloture ? sortie.dateCloture|date('d-m-Y H:i') : '' }}</td>
+                    <td>{{ sortie.nbInscriptions }}/{{ sortie.nbInscriptionsMax }}</td>
+                    <td>
+                        {% if sortie.etat == 'CRE' %}
+                            En création
+                        {% elseif sortie.etat == 'OUV' %}
+                            Ouverte
+                        {% elseif sortie.etat == 'ENC' %}
+                            En cours
+                        {% elseif sortie.etat == 'PAS' %}
+                            Passée
+                        {% elseif sortie.etat == 'ANN' %}
+                            Fermée
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if sortie.estInscris(app.user) %}
+                            <div>X</div>
                         {% else %}
 
-                    {% endif %}
-                </td>
-                <td>{{ sortie.organisateur }}</td>
-                <td>
-                    <a href="{{ path('sortie_show', {'id': sortie.id}) }}">Afficher</a>
-                    {% if app.user == sortie.organisateur %}
-                        {% if sortie.etat == 'OUV' or sortie.etat == 'CRE' %}
-                            <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
-                            {#<a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>  méthode ctrller à définir#}
-                            {% endif %}
-                        {% if sortie.etat == 'CRE' %}
-                            {#<a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>  méthode ctrller à définir#}
                         {% endif %}
-                    {% elseif not sortie.estInscris(app.user) and sortie.nbInscriptions < sortie.nbInscriptionsMax and sortie.etat == 'OUV' %}
-                        <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
-                    {% elseif sortie.estInscris(app.user) and sortie.etat == 'OUV' %}
-                        <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
-                    {% endif %}
+                    </td>
+                    <td>{{ sortie.organisateur }}</td>
+                    <td>
+                        <a href="{{ path('sortie_show', {'id': sortie.id}) }}">Afficher</a>
+                        {% if app.user == sortie.organisateur %}
+                            {% if sortie.etat == 'OUV' or sortie.etat == 'CRE' %}
+                                <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+                                {#<a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>  méthode ctrller à définir#}
+                            {% endif %}
+                            {% if sortie.etat == 'CRE' %}
+                                {#<a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>  méthode ctrller à définir#}
+                            {% endif %}
+                        {% elseif not sortie.estInscris(app.user) and sortie.nbInscriptions < sortie.nbInscriptionsMax and sortie.etat == 'OUV' %}
+                            <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                        {% elseif sortie.estInscris(app.user) and sortie.etat == 'OUV' %}
+                            <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
+                        {% endif %}
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('sortie_new') }}" class="bouton">
-        <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
-    </a>
+        <a href="{{ path('sortie_new') }}" class="bouton btnNew">
+            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
+        </a>
 
 
-</div>
+    </div>
+
 {% endblock %}
