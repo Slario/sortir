@@ -86,6 +86,7 @@ class SortieController extends Controller
         //$sortie->setDateDebut(new \DateTime());
         $lieu = new Lieu();
         $ville = new Ville();
+        $sortie->setSite($this->getUser()->getSite());
 
         $request = Request::createFromGlobals();
         $idVille = $request->query->get('valeur');

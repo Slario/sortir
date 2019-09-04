@@ -67,13 +67,21 @@ class SortieType extends AbstractType
                 'attr' => array('class' => 'form-control'),
                 'mapped' => false,
             ])
-            /*->add('lieu', EntityType::class, [
+            ->add('site', EntityType::class,
+                ['class'=> Site::class,
+                    'choice_label' => 'nom',
+                    'label' => 'Site',
+                    'trim' => true,
+                    'attr' => array('class' => 'form-control'),
+                    'mapped' => false,
+                    'disabled'=>true])
+            ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nomLieu',
                 'label' => 'Lieu',
                 'trim' => true,
                 'attr' => array('class' => 'form-control')
-            ])*/
+            ])
             ->add('enregistrer', SubmitType::class, [
                 'attr' => array('class' => 'bouton'),
                 "label" => "Enregistrer"
