@@ -103,12 +103,7 @@ class SortieController extends Controller
             $entityManager->flush();
             // do anything else you need here, like send an email
             $this->addFlash("success", "La sortie vient d'être ajoutée en base de donnée");
-            return $this->render('sortie/', [
-                'sortie' => $sortie,
-                'form' => $form->createView(),
-                'formLieu' =>$formLieu->createView(),
-                'formVille' =>$formVille->createView()
-            ]);
+            return $this->redirectToRoute('sortie_index');
         }
 
         if ($formLieu->isSubmitted() && $formLieu->isValid()) {
