@@ -1,4 +1,4 @@
-    /*
+/*
  * Welcome to your app's main JavaScript file!
  *
  * We recommend including the built version of this JavaScript file
@@ -27,7 +27,7 @@ $("#rechercheUser").keyup(function () {
         type: 'GET', // Le type de la requête HTTP.
         data: 'recherche=' + recherche,
         success: function (response) {
-            console.log($('.text-center',response));
+            //console.log(response);
             //$('#resultat').html($('.text-center' . response));
             $('#resultat').html($('.text-center',response));
         },
@@ -83,70 +83,8 @@ $("#rechercheVille").keyup(function () {
     });
 });
 
-//-------------------------------------Afficher les lieux en fonction d'une ville--------------------------------------
-$("#sortie_ville option").click(function () {
-    let valeur = $('#sortie_ville').val();
-    var path = $("#path_adrSortie").attr("data-path");
-    $.ajax({
-        url: path, // La ressource ciblée
-        type: 'GET', // Le type de la requête HTTP.
-        data: 'valeur=' + valeur,
-        success: function (response) {
-            $('.test').html($('.test' , response));
-            $("#sortie_lieu option").click(function () {
-                let valeur = $('#sortie_lieu').val();
-                console.log(valeur)
-                $.ajax({
-                    url: path, // La ressource ciblée
-                    type: 'GET', // Le type de la requête HTTP.
-                    data: 'valeur=' + valeur,
-                    success: function (response) {
-                        //$('.test').html($('.test' , response));
-                    }
-                })
-            })
-        },
-
-
-    });
-});
-//-------------------------------------Afficher la rue et le cp d'un lieu--------------------------------------
-$("#sortie_lieu option").click(function () {
-    let valeur = $('#sortie_lieu').val();
-    console.log(valeur);
-    var path = $("#path_adrAdresseLieu").attr("data-path");
-    $.ajax({
-        url: path, // La ressource ciblée
-        type: 'GET', // Le type de la requête HTTP.
-        data: 'valeur=' + valeur,
-        success: function (response) {
-            console.log(response)
-            //$('##lieux option').html($('.text-center' . response));
-            //$('.test').html($('.test' , response));
-        },
-
-
-    });
-});
-//-------------------------------------Modale --------------------------------------
-$(".boutonPlus").click(function () {
-    var path = $("#path_adrNewVille").attr("data-path");
-    $.ajax({
-        url: '/ville' . path, // La ressource ciblée
-        type: 'GET', // Le type de la requête HTTP.
-        data: 'ajouterVille=',
-        success: function () {
-            $("#ModalAjoutVille").modal('show');
-            $("#btnAjouterVille").click(function () {
-                $("#ModalAjoutVille").modal('hide');
-            })
-            //$('##lieux option').html($('.text-center' . response));
-            //$('.test').html($('.test' , response));
-        },
-
-
-    });
-});
+//success: function (data){
+    //$('#showresults').replaceWith($('#showresults',data)); },
 
 
 // require the JavaScript

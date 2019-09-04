@@ -5,7 +5,6 @@
 {% block body %}
     <h2>Créer une ville</h2>
 
-    <div id="path_adrNewVille" data-path="{{ path('ville_new') }}"></div>
     <div class="text-center">
         {{ include('ville/_form.html.twig', {'button_label': 'Créer'}) }}
         <a href="{{ path('ville_index') }}" class="bouton d-inline-block">Annuler</a>

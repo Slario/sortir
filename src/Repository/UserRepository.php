@@ -33,6 +33,7 @@ class UserRepository extends ServiceEntityRepository
 
     public function verifierDroitsDeModificationSortie(Sortie $sortie, User $user)
     {
+
         return $user->getId() == $sortie->getOrganisateur()->getOrgaSortie()->get('id');
     }
 

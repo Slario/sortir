@@ -8,15 +8,12 @@ use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
-use App\Form\UserType;
 use App\Form\SortieCancelType;
 use App\Form\SortieSearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\InscriptionRepository;
-use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
-use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,7 +56,7 @@ class SortieController extends Controller
                 dump($sorties);
             }else {
 
-                $sorties = $sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]);
+                $sorties = $sortieRepository->findAll();
             }
             return $this->render('sortie/index.html.twig', [
                 'sorties' => $sorties,
@@ -68,9 +65,7 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository
-                ->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]),
-
+            'sorties' => $sortieRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -78,7 +73,7 @@ class SortieController extends Controller
     /**
      * @Route("/new", name="sortie_new", methods={"GET","POST"})
      */
-    public function new(Request $request, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
+    public function new(Request $request): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
@@ -86,16 +81,11 @@ class SortieController extends Controller
         //$sortie->setDateDebut(new \DateTime());
         $lieu = new Lieu();
         $ville = new Ville();
-        $sortie->setSite($this->getUser()->getSite());
-
-        $request = Request::createFromGlobals();
-        $idVille = $request->query->get('valeur');
-        dump($idVille);
-        $listeLieux = $lieuRepository->getLieuByVille($idVille);
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);
         $formVille = $this->createForm(VilleType::class,$ville);
+
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
@@ -107,7 +97,6 @@ class SortieController extends Controller
             } else {
                 $sortie->setEtat('OUV');
             }
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
@@ -140,8 +129,7 @@ class SortieController extends Controller
             'form' => $form->createView(),
 
             'formLieu' =>$formLieu->createView(),
-            'formVille' =>$formVille->createView(),
-            'listeLieux' =>$listeLieux,
+            'formVille' =>$formVille->createView()
         ]);
     }
 
