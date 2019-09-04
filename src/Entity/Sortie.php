@@ -20,6 +20,8 @@ class Sortie
     const ETAT_EN_COURS = 'ENC';
     const ETAT_PASSEE = 'PAS';
     const ETAT_ANNULLE = 'ANN';
+    const ETAT_INSCRIP_FERMME = 'CLO';
+    const ETAT_ARCHIVE = 'ARC';
 
     /**
      * @ORM\Id()
@@ -270,7 +272,8 @@ class Sortie
 
     public function setEtat(?string $etat): self
     {
-        if (!in_array($etat, array(self::ETAT_ANNULLE, self::ETAT_CREE, self::ETAT_EN_COURS, self::ETAT_OUVERTE, self::ETAT_PASSEE))) {
+        if (!in_array($etat, array(self::ETAT_ANNULLE, self::ETAT_CREE, self::ETAT_EN_COURS, self::ETAT_OUVERTE,
+            self::ETAT_PASSEE, self::ETAT_ARCHIVE, self::ETAT_INSCRIP_FERMME))) {
             throw new InvalidArgumentException("Etat invalide");
         }
         $this->etat = $etat;
