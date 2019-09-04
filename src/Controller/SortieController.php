@@ -8,6 +8,7 @@ use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
+use App\Form\UserType;
 use App\Form\SortieCancelType;
 use App\Form\SortieSearchType;
 use App\Form\SortieType;
@@ -66,7 +67,8 @@ class SortieController extends Controller
 
         return $this->render('sortie/index.html.twig', [
             'sorties' => $sortieRepository
-                ->$sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]),
+                ->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]),
+
             'form' => $form->createView(),
         ]);
     }

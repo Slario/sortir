@@ -26,7 +26,7 @@ class SortieRepository extends ServiceEntityRepository
     public function searchSorties($site, $nom, $dateMin, $dateMax, $checkbox, User $user)
     {
         $result = $this->createQueryBuilder('a')
-        ->andWhere('a.etat != ARC');
+        ->andWhere('a.etat != "ARC"');
         if ($site) {
             $result->andWhere('a.site = :site')
                 ->setParameter('site', $site);
@@ -127,5 +127,7 @@ class SortieRepository extends ServiceEntityRepository
         return $sortiesARecup;
 
     }
+
+
 
 }
