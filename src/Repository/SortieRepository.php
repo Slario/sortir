@@ -25,8 +25,8 @@ class SortieRepository extends ServiceEntityRepository
 
     public function searchSorties($site, $nom, $dateMin, $dateMax, $checkbox, User $user)
     {
-        $sortiesARecup = new ArrayCollection();
-        $result = $this->createQueryBuilder('a');
+        $result = $this->createQueryBuilder('a')
+        ->andWhere('a.etat != "ARC"');
         if ($site) {
             $result->andWhere('a.site = :site')
                 ->setParameter('site', $site);
@@ -94,6 +94,17 @@ class SortieRepository extends ServiceEntityRepository
             return $notSubed;
         }
     }
+    public function getByVille($ville){
+        $req = $this->createQueryBuilder('s')
+            ->select('s')
+            ->where('s.lieu = :ville')
+            ->setParameter('ville', "9");
+        $query = $req->getQuery();
+        $result = $query->getResult();
+        dump($result);
+
+        return $result;
+    }
 
     private function subedAndNotSubed($checkbox)
     {
@@ -127,5 +138,7 @@ class SortieRepository extends ServiceEntityRepository
         return $sortiesARecup;
 
     }
+
+
 
 }

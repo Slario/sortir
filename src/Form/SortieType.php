@@ -5,7 +5,8 @@ namespace App\Form;
 use App\Entity\Lieu;
 use App\Entity\Site;
 use App\Entity\Sortie;
-
+use App\Entity\User;
+use App\Entity\Ville;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -28,7 +29,6 @@ class SortieType extends AbstractType
                 'label' => 'Nom de la sortie',
                 'attr' => array('class' => 'form-control')
             ])
-
             ->add('dateDebut', DateTimeType::class, array(
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
@@ -37,17 +37,14 @@ class SortieType extends AbstractType
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
             ))
-            ->add('nbInscriptionsMax',IntegerType::class,[
-                'label'=>'Nombre de places',
-                'attr'=> array('class'=>'form-control')
+            ->add('nbInscriptionsMax', IntegerType::class, [
+                'label' => 'Nombre de places',
+                'attr' => array('class' => 'form-control')
 
             ])
-
-
-
-            ->add('duree',IntegerType::class,[
-                'label'=>'Durée en minutes',
-                'attr'=> array('class'=>'form-control', 'min'=>'0', 'step'=>'15'),
+            ->add('duree', IntegerType::class, [
+                'label' => 'Durée en minutes',
+                'attr' => array('class' => 'form-control', 'min' => '0', 'step' => '15'),
 
             ])
             ->add('descriptionInfos', TextareaType::class, [
@@ -62,13 +59,22 @@ class SortieType extends AbstractType
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
             ])*/
-            ->add('site', EntityType::class, [
-                'class' => Site::class,
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
                 'choice_label' => 'nom',
-                'label' => 'Organisme',
+                'label' => 'Ville',
                 'trim' => true,
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'mapped' => false,
             ])
+            ->add('site', EntityType::class,
+                ['class'=> Site::class,
+                    'choice_label' => 'nom',
+                    'label' => 'Site',
+                    'trim' => true,
+                    'attr' => array('class' => 'form-control'),
+                    'mapped' => false,
+                    'disabled'=>true])
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nomLieu',
@@ -77,13 +83,13 @@ class SortieType extends AbstractType
                 'attr' => array('class' => 'form-control')
             ])
             ->add('enregistrer', SubmitType::class, [
-                'attr'=> array('class'=>'bouton'),
+                'attr' => array('class' => 'bouton'),
                 "label" => "Enregistrer"
             ])
             ->add('publier', SubmitType::class, [
-                'attr'=> array('class'=>'bouton'),
+                'attr' => array('class' => 'bouton'),
                 "label" => "Publier"
-            ])            
+            ])
             ->add('annuler', SubmitType::class, [
                 'attr' => array('class' => 'bouton'),
                 'label' => "Annuler"
