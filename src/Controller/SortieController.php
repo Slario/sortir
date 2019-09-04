@@ -99,6 +99,7 @@ class SortieController extends Controller
                 $sortie->setEtat('OUV');
             }
 
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);
             $entityManager->flush();
