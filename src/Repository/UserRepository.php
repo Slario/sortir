@@ -24,7 +24,7 @@ class UserRepository extends ServiceEntityRepository
     {
         $req = $this->createQueryBuilder('u')
             ->select('u')
-            ->where('u.nom like :recherche')
+            ->where('u.nom like :recherche OR u.prenom like :recherche')
             ->setParameter('recherche', "%$recherche%");
         $query = $req->getQuery();
         $result = $query->getResult();

@@ -9,6 +9,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Form\SortieCancelType;
+use App\Form\SortieSearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\InscriptionRepository;
@@ -25,12 +26,48 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends Controller
 {
     /**
-     * @Route("", name="sortie_index", methods={"GET"})
+     * @Route("", name="sortie_index", methods={"GET", "POST"})
      */
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(SortieRepository $sortieRepository, Request $request): Response
     {
+
+
+
+        $form = $this->createForm(SortieSearchType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $site = $form->get('site')->getData();
+
+            $nom = $form->get('nom')->getData();
+
+            $dateMin = $form->get('dateMin')->getData();
+
+            $dateMax = $form->get('dateMax')->getData();
+
+            $checkbox = $form->get('checkbox')->getData();
+
+            $user = $this->getUser();
+            if ($site || $nom || $dateMin || $dateMax || $checkbox) {
+
+
+                $sorties = $sortieRepository->searchSorties($site, $nom, $dateMin, $dateMax, $checkbox, $user);
+                dump($sorties);
+            }else {
+
+                $sorties = $sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]);
+            }
+            return $this->render('sortie/index.html.twig', [
+                'sorties' => $sorties,
+                'form' => $form->createView(),
+            ]);
+        }
+
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository->findAll(),
+            'sorties' => $sortieRepository
+                ->$sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -41,6 +78,8 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
+        // le datepicker affiche automatiquement la date dur jour
+        //$sortie->setDateDebut(new \DateTime());
         $lieu = new Lieu();
         $ville = new Ville();
 
@@ -115,11 +154,10 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Sortie $sortie): Response
     {
         $lieu = new Lieu();
         $ville = new Ville();
-        $formVille = $this->createForm(VilleType::class,$ville);
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);

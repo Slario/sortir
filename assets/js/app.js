@@ -18,9 +18,74 @@ require('bootstrap');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
+//-------------------------------------Recherche instantanée--------------------------------------
+$("#rechercheUser").keyup(function () {
+    let recherche = $('#rechercher').val();
+    var path = $("#path_adrUser").attr("data-path");
+    $.ajax({
+        url: path, // La ressource ciblée
+        type: 'GET', // Le type de la requête HTTP.
+        data: 'recherche=' + recherche,
+        success: function (response) {
+            //console.log(response);
+            //$('#resultat').html($('.text-center' . response));
+            $('#resultat').html($('.text-center',response));
+        },
+
+    });
 });
+
+$("#rechercheLieu").keyup(function () {
+    let recherche = $('#rechercher').val();
+    var path = $("#path_adrLieu").attr("data-path");
+    $.ajax({
+        url: path, // La ressource ciblée
+        type: 'GET', // Le type de la requête HTTP.
+        data: 'recherche=' + recherche,
+        success: function (response) {
+            //console.log(response);
+            //$('#resultat').html($('.text-center' . response));
+            $('#resultat').html($('.text-center',response));
+        },
+
+    });
+});
+
+$("#rechercheSite").keyup(function () {
+    let recherche = $('#rechercher').val();
+    var path = $("#path_adrSite").attr("data-path");
+    $.ajax({
+        url: path, // La ressource ciblée
+        type: 'GET', // Le type de la requête HTTP.
+        data: 'recherche=' + recherche,
+        success: function (response) {
+            //console.log(response);
+            //$('#resultat').html($('.text-center' . response));
+            $('#resultat').html($('.text-center',response));
+        },
+
+    });
+});
+
+$("#rechercheVille").keyup(function () {
+    let recherche = $('#rechercher').val();
+    var path = $("#path_adrVille").attr("data-path");
+    $.ajax({
+        url: path, // La ressource ciblée
+        type: 'GET', // Le type de la requête HTTP.
+        data: 'recherche=' + recherche,
+        success: function (response) {
+            //console.log(response);
+            //$('#resultat').html($('.text-center' . response));
+            $('#resultat').html($('.text-center',response));
+        },
+
+    });
+});
+
+//success: function (data){
+    //$('#showresults').replaceWith($('#showresults',data)); },
+
 
 // require the JavaScript
 require('bootstrap-star-rating');
