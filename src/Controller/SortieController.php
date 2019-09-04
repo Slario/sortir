@@ -56,7 +56,7 @@ class SortieController extends Controller
                 dump($sorties);
             }else {
 
-                $sorties = $sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]);
+                $sorties = $sortieRepository->findAll();
             }
             return $this->render('sortie/index.html.twig', [
                 'sorties' => $sorties,
@@ -65,8 +65,7 @@ class SortieController extends Controller
         }
 
         return $this->render('sortie/index.html.twig', [
-            'sorties' => $sortieRepository
-                ->$sortieRepository->findBy(['etat'=>['CRE', 'OUV', 'CLO', 'ENC', 'PAS', 'ANN']]),
+            'sorties' => $sortieRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -98,7 +97,6 @@ class SortieController extends Controller
             } else {
                 $sortie->setEtat('OUV');
             }
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($sortie);

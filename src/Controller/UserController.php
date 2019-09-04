@@ -107,8 +107,4 @@ class UserController extends Controller
         $listeUsers = $entityManager->getRepository('App:User')->getUserByMotCle($recherche);
         return $this->render("user/index.html.twig", ["listeUsers" => $listeUsers, "rechercher" => $rechercher]);
     }
-
-    private function passerAdmin(User $user) {
-        $this->getUser()->setRoles();
-    }
 }

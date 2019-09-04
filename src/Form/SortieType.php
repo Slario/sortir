@@ -42,6 +42,9 @@ class SortieType extends AbstractType
                 'attr'=> array('class'=>'form-control')
 
             ])
+
+
+
             ->add('duree',IntegerType::class,[
                 'label'=>'Durée en minutes',
                 'attr'=> array('class'=>'form-control', 'min'=>'0', 'step'=>'15'),
@@ -52,12 +55,13 @@ class SortieType extends AbstractType
                 'trim' => true,
                 'attr' => array('class' => 'form-control')
             ])
-            ->add('organisateur', EntityType::class,[
+            /*->add('organisateur',EntityType::class,[
                 'class'=>User::class,
                 'label'=>'Organisateur',
+                'disabled'=>true,
                 'trim'=>true,
                 'attr'=> array('class'=>'form-control')
-            ])
+            ])*/
             ->add('site', EntityType::class, [
                 'class' => Site::class,
                 'choice_label' => 'nom',
