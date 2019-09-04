@@ -14,7 +14,9 @@ use App\Form\SortieSearchType;
 use App\Form\SortieType;
 use App\Form\VilleType;
 use App\Repository\InscriptionRepository;
+use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -76,7 +78,7 @@ class SortieController extends Controller
     /**
      * @Route("/new", name="sortie_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, LieuRepository $lieuRepository, VilleRepository $villeRepository): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
@@ -85,10 +87,14 @@ class SortieController extends Controller
         $lieu = new Lieu();
         $ville = new Ville();
 
+        $request = Request::createFromGlobals();
+        $idVille = $request->query->get('valeur');
+        dump($idVille);
+        $listeLieux = $lieuRepository->getLieuByVille($idVille);
+
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);
         $formVille = $this->createForm(VilleType::class,$ville);
-
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
@@ -133,7 +139,8 @@ class SortieController extends Controller
             'form' => $form->createView(),
 
             'formLieu' =>$formLieu->createView(),
-            'formVille' =>$formVille->createView()
+            'formVille' =>$formVille->createView(),
+            'listeLieux' =>$listeLieux,
         ]);
     }
 

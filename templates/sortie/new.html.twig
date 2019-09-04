@@ -3,6 +3,8 @@
 {% block title %}Nouvelle sortie{% endblock %}
 
 {% block body %}
+
+    <div id="path_adrSortie" data-path="{{ path('sortie_new') }}"></div>
     <h2>Création d'une sortie</h2>
 
     {{ include('sortie/_form.html.twig') }}

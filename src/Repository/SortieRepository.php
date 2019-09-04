@@ -94,6 +94,17 @@ class SortieRepository extends ServiceEntityRepository
             return $notSubed;
         }
     }
+    public function getByVille($ville){
+        $req = $this->createQueryBuilder('s')
+            ->select('s')
+            ->where('s.lieu = :ville')
+            ->setParameter('ville', "9");
+        $query = $req->getQuery();
+        $result = $query->getResult();
+        dump($result);
+
+        return $result;
+    }
 
     private function subedAndNotSubed($checkbox)
     {
