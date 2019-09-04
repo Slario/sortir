@@ -17,7 +17,7 @@ class Sortie
     const ETAT_CREE = 'CRE';
     const ETAT_OUVERTE = 'OUV';
     const ETAT_ANNULLE = 'ANN';
-    const ETAT_INSCRIPTION_CLOTUREE = 'CLOS';
+    const ETAT_INSCRIPTION_CLOTUREE = 'CLO';
     const ETAT_EN_COURS = 'ENC';
     const ETAT_PASSEE = 'PAS';
     const ARCHIVEE = 'ARC';
@@ -80,7 +80,7 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\Column(type="string", length=4)
+     * @ORM\Column(type="string", length=3)
      *
      */
     private $etat;
