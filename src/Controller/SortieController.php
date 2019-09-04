@@ -77,6 +77,8 @@ class SortieController extends Controller
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
+        // le datepicker affiche automatiquement la date dur jour
+        //$sortie->setDateDebut(new \DateTime());
         $lieu = new Lieu();
         $ville = new Ville();
 
@@ -150,11 +152,10 @@ class SortieController extends Controller
     /**
      * @Route("/{id}/edit", name="sortie_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Sortie $sortie, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Sortie $sortie): Response
     {
         $lieu = new Lieu();
         $ville = new Ville();
-        $formVille = $this->createForm(VilleType::class,$ville);
 
         $form = $this->createForm(SortieType::class, $sortie);
         $formLieu = $this->createForm(LieuType::class,$lieu);
