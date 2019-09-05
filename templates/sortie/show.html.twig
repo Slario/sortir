@@ -10,14 +10,23 @@
     <div class="container-fluid ">
         <div class="row no-gutters col-xs-4">
             <div class="col-xs-12 col-md-8">
-                <div class="card">
-                    <p> Un événement organisé gauche</p>
+                <div class="card" style="width: fit-content">
+                    <div class="card-body">
+                        <h4 class="card-title"><b>{{ sortie.nom }}</b></h4>
+                        <p class="card-text">{{ sortie.descriptionInfos }}</p>
+                    </div>
                 </div>
             </div>
 
             <div class=".col-xs-6 .col-md-4">
-                <div class="card">
-                    <p> Un événement organisé droite</p>
+                <div class="card" style="width: fit-content">
+                    <div class="card-body">
+                        <p class="card-text">{{ sortie.site}}</p>
+                        <p class="card-text"> <b>Nom du lieu : </b> {{ sortie.lieu.nomLieu }}</p>
+                        <p class="card-text"><b>Adresse : </b> {{ sortie.lieu.rue }} à {{ sortie.lieu.ville}}</p>
+                        <p class="card-text"><b>Date de l'évènement : </b> {{ sortie.dateDebut | 'none', 'none', 'fr', 'Europe/Paris', EEEE}}</p>
+                    </div>
+
                 </div>
             </div>
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Inscription;
 use App\Entity\Lieu;
+use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\LieuType;
@@ -136,7 +137,7 @@ class SortieController extends Controller
     /**
      * @Route("/{id}", name="sortie_show", methods={"GET"})
      */
-    public function show(Sortie $sortie): Response
+    public function show(Sortie $sortie, Lieu $lieu, Site $site): Response
     {
 
         //$id=$sortie->getId();
@@ -145,7 +146,9 @@ class SortieController extends Controller
 
 
         return $this->render('sortie/show.html.twig', [
-            'sortie' => $sortie
+            'sortie' => $sortie,
+            'lieu' => $lieu,
+            'site' => $site
         ]);
     }
 
