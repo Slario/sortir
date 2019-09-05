@@ -58,7 +58,8 @@ class Sortie
     private $nbInscriptionsMax;
 
     /**
-     * @ORM\Column(type="string", length=500)
+     * @ORM\Column(type="string", length=200000)
+     * @ORM\Column(type="string", length=200000)
      */
     private $descriptionInfos;
 
