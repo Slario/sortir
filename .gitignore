@@ -49,10 +49,8 @@ node_modules
 
 # Embedded web-server pid file
 /.web-server-pid
-
 ###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
+
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
@@ -64,3 +62,6 @@ yarn-error.log
 # IDE
 /.idea
 .idea/
+
+# Projets
+.~lock*
