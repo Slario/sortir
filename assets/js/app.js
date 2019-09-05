@@ -85,33 +85,37 @@ $("#rechercheVille").keyup(function () {
 
 //-------------------------------------Afficher les lieux en fonction d'une ville--------------------------------------
 $("#sortie_ville option").click(function () {
-    let valeur = $('#sortie_ville').val();
-    var path = $("#path_adrSortie").attr("data-path");
+    let ville = $('#sortie_ville').val();
+    let path = $("#path_adrSortie").attr("data-path");
     $.ajax({
         url: path, // La ressource ciblée
         type: 'GET', // Le type de la requête HTTP.
-        data: 'valeur=' + valeur,
+        async: false,
+        data: 'ville=' + ville,
         success: function (response) {
-            $('.test').html($('.test' , response));
+            $('.lieu').html($('.lieu' , response));
             $("#sortie_lieu option").click(function () {
-                let valeur = $('#sortie_lieu').val();
-                console.log(valeur)
+                let lieu = $('#sortie_lieu').val();
                 $.ajax({
                     url: path, // La ressource ciblée
-                    type: 'GET', // Le type de la requête HTTP.
-                    data: 'valeur=' + valeur,
+                    type: 'POST', // Le type de la requête HTTP.
+                    data: lieu,
                     success: function (response) {
-                        //$('.test').html($('.test' , response));
+                        console.log(response)
+                        $('#rue').html($('#rue' , response));
+                    },
+                    error: function (response) {
+                        console.log(response)
+                        $('#rue').html($('#rue' , response));
                     }
                 })
             })
         },
-
-
     });
 });
+
 //-------------------------------------Afficher la rue et le cp d'un lieu--------------------------------------
-$("#sortie_lieu option").click(function () {
+/*$("#sortie_lieu option").click(function () {
     let valeur = $('#sortie_lieu').val();
     console.log(valeur);
     var path = $("#path_adrAdresseLieu").attr("data-path");
@@ -129,6 +133,7 @@ $("#sortie_lieu option").click(function () {
     });
 });
 //-------------------------------------Modale --------------------------------------
+/*
 $(".boutonPlus").click(function () {
     var path = $("#path_adrNewVille").attr("data-path");
     $.ajax({
@@ -147,7 +152,7 @@ $(".boutonPlus").click(function () {
 
     });
 });
-
+*/
 
 // require the JavaScript
 require('bootstrap-star-rating');

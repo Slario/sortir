@@ -218,5 +218,9 @@ button{
     margin-top: 0.2%;
     margin-bottom: 1%;
 }
-
+.alert-success{
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
 /* ------------------ Footer ------------------ */
