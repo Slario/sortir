@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ *
  */
 class User implements UserInterface
 {
@@ -28,26 +29,28 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank(message="Le champ email ne peut pas être vide !")
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank()
      */
     private $email;
 
     /**
      * @Assert\NotBlank(message="Le champ pseudo ne peut pas être vide !")
-     * @ORM\Column(type="string", length=180, nullable=true)
-     * @return mixed
+     * @ORM\Column(type="string", length=50, nullable=true)
+     * @Assert\NotBlank()
      */
 
     private $pseudo;
 
     /**
      * @ORM\Column(type="array")
+     *
      */
     private $roles;
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=200)
      */
     private $password;
 
@@ -55,6 +58,7 @@ class User implements UserInterface
     /**
      * @var string
      * @Assert\NotBlank(message="Le champ mot de passe ne peut pas être vide !")
+     * @Assert\Length(min=8)
      */
     private $plainPassword;
 
@@ -69,12 +73,12 @@ class User implements UserInterface
     protected $oldPassword;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $prenom;
 

@@ -220,6 +220,7 @@ class SortieController extends Controller
     /**
      * @Route("/{id}", name="sortie_delete", methods={"DELETE"})
      */
+    /*
     public function delete(Request $request, Sortie $sortie): Response
     {
         if ($this->isCsrfTokenValid('delete' . $sortie->getId(), $request->request->get('_token'))) {
@@ -229,7 +230,7 @@ class SortieController extends Controller
         }
 
         return $this->redirectToRoute('sortie_index');
-    }
+    }*/
 
     /**
      * @Route("/addParticipant/{id}", name="sortie_add_participant", methods={"GET"})
@@ -238,15 +239,16 @@ class SortieController extends Controller
     {
 
         $user = $this->getUser();
-        $inscription = new Inscription();
-        $inscription->setParticipant($user)->setSortie($sortie)->setDateInscription(new \DateTime());
-        $user->addInscription($inscription);
-        $sortie->addInscription($inscription);
-        $entityManager->persist($user);
-        $entityManager->persist($sortie);
-        $entityManager->persist($inscription);
-        $entityManager->flush();
-
+        if ($sortie->getEtat() === 'OUV') {
+            $inscription = new Inscription();
+            $inscription->setParticipant($user)->setSortie($sortie)->setDateInscription(new \DateTime());
+            $user->addInscription($inscription);
+            $sortie->addInscription($inscription);
+            $entityManager->persist($user);
+            $entityManager->persist($sortie);
+            $entityManager->persist($inscription);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('sortie_index');
 
     }
@@ -258,13 +260,15 @@ class SortieController extends Controller
     {
 
         $user = $this->getUser();
-        $inscription = $inscriptionRepository->findOneBy(['participant' => $user, 'sortie' => $sortie]);
-        $user->removeInscription($inscription);
-        $sortie->removeInscription($inscription);
-        $entityManager->remove($inscription);
-        $entityManager->persist($user);
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+        if ($sortie->getEtat() === 'OUV') {
+            $inscription = $inscriptionRepository->findOneBy(['participant' => $user, 'sortie' => $sortie]);
+            $user->removeInscription($inscription);
+            $sortie->removeInscription($inscription);
+            $entityManager->remove($inscription);
+            $entityManager->persist($user);
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+        }
 
         return $this->redirectToRoute('sortie_index');
 
