@@ -56,33 +56,28 @@
 
             {{ form_end(form) }}
         </div>
-
+    </div>
+    <div class="text-center btnNewSortie">
+        <a href="{{ path('sortie_new') }}" class="bouton btnNew">
+            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
+        </a>
     </div>
 
-    <h2>Sorties sélectionnées</h2>
-    <div class="text-center">
-
-        <table class="table table-dark">
-            <thead>
-            <tr>
-                <th>Nom de la sortie</th>
-                <th>Date de la sortie</th>
-                <th>Clôture</th>
-                <th>Inscris/Places</th>
-                <th>Etat</th>
-                <th>Inscris</th>
-                <th>Organisateur</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for sortie in sorties %}
-                <tr>
-                    <td>{{ sortie.nom }}</td>
-                    <td>{{ sortie.dateDebut  ? sortie.dateDebut|date('d-m-Y H:i') : '' }}</td>
-                    <td>{{ sortie.dateCloture ? sortie.dateCloture|date('d-m-Y H:i') : '' }}</td>
-                    <td>{{ sortie.nbInscriptions }}/{{ sortie.nbInscriptionsMax }}</td>
-                    <td>
+    <div class="row d-flex justify-content-center">
+        {% for sortie in sorties %}
+            <div class="col-md-3 col-12 uneSortie">
+                <div class="row text-center more_space">
+                    <h4 class="col-12 align-middle">
+                        {{ sortie.nom }}
+                    </h4>
+                    <div class="col-12">Organisateur :<br>{{ sortie.organisateur }}<br>
+                    </div>
+                    <div class="col-12">Places prises : {{ sortie.nbInscriptions }}/{{ sortie.nbInscriptionsMax }}</div>
+                    <div class="col-12">Date de la sortie
+                        :<br>{{ sortie.dateDebut  ? sortie.dateDebut|date('d-m-Y H:i') : '' }}</div>
+                    <div class="col-12">Date de clôture des inscriptions
+                        :<br>{{ sortie.dateCloture ? sortie.dateCloture|date('d-m-Y H:i') : '' }}</div>
+                    <div class="col-12">Etat :
                         {% if sortie.etat == 'CRE' %}
                             En création
                         {% elseif sortie.etat == 'OUV' %}
@@ -93,47 +88,60 @@
                             Passée
                         {% elseif sortie.etat == 'ANN' %}
                             Fermée
+                        {% elseif sortie.etat == 'CLO' %}
+                            Inscriptions cloturées
                         {% endif %}
-                    </td>
-                    <td>
-                        {% if sortie.estInscris(app.user) %}
-                            <div>X</div>
-                        {% else %}
+                    </div>
+                    <div class="col-12">
+                        {% if sortie.organisateur != app.user %}
+                            {% if sortie.estInscris(app.user) %}
+                                {% if sortie.etat == 'OUV' %}
+                                    Vous êtes inscris -
+                                    <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se
+                                        désinscrire</a>
+                                {% else %}
+                                    Vous êtes inscris
+                                {% endif %}
+                            {% else %}
+                                {% if sortie.etat == 'OUV' and sortie.nbInscriptions < sortie.nbInscriptionsMax %}
+                                    Vous n'êtes pas inscris -
+                                    <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                                {% else %}
+                                    Vous n'êtes pas inscris
+                                {% endif %}
 
-                        {% endif %}
-                    </td>
-                    <td>{{ sortie.organisateur }}</td>
-                    <td>
-                        <a href="{{ path('sortie_show', {'id': sortie.id}) }}">Afficher</a>
-                        {% if app.user == sortie.organisateur %}
-                            {% if sortie.etat == 'OUV' or sortie.etat == 'CRE' %}
-                                <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
-                                {#<a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>  méthode ctrller à définir#}
                             {% endif %}
-                            {% if sortie.etat == 'CRE' %}
-                                {#<a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>  méthode ctrller à définir#}
-                            {% endif %}
-                        {% elseif not sortie.estInscris(app.user) and sortie.nbInscriptions < sortie.nbInscriptionsMax and sortie.etat == 'OUV' %}
-                            <a href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
-                        {% elseif sortie.estInscris(app.user) and sortie.etat == 'OUV' %}
-                            <a href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
                         {% endif %}
+                    </div>
+                    <div class="col-12">
+                        <a href="{{ path('sortie_show', {'id': sortie.id}) }}">Afficher la sortie</a>
+                    </div>
+                    <div class="col-12">
+                        {% if app.user == sortie.organisateur and (sortie.etat == 'OUV' or sortie.etat == 'CRE') %}
+                            <a href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier/Publier la sortie</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                    {% if sortie.organisateur == app.user and (sortie.etat == 'OUV' or sortie.etat == 'CRE') %}
+                        <a href="{{ path('sortie_cancel', {'id': sortie.id}) }}">Annuler la sortie</a>
+                    {% endif %}
+                    </div>
+                </div>
 
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="9">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
 
-        <a href="{{ path('sortie_new') }}" class="bouton btnNew">
-            <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
-        </a>
+            </div>
 
 
+        {% else %}
+            <td colspan="9">Aucune sortie avec les critères spécifiés</td>
+        {% endfor %}
     </div>
+    <div class="text-center btnNewSortie">
+    <a href="{{ path('sortie_new') }}" class="bouton btnNew">
+        <img alt="plus" class="plus" src="{{ asset('build/images/add.svg') }}"> Ajouter une sortie
+    </a>
+    </div>
+
+
 
 {% endblock %}

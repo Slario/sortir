@@ -37,6 +37,7 @@ class SortieSearchType extends AbstractType
                 'required'=>false,
 
 
+
                 ])
             ->add('dateMax', DateTimeType::class, [
                 'date_widget' => 'single_text',
