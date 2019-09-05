@@ -220,6 +220,13 @@ button{
     margin-bottom: 1%;
 }
 
+.alert-success{
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
 .uneSortie{
     background-color: white;
     border-radius: 20px;
@@ -247,5 +254,6 @@ h4{
     margin-top: 3%;
 
 }
+
 
 /* ------------------ Footer ------------------ */

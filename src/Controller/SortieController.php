@@ -73,7 +73,7 @@ class SortieController extends Controller
     /**
      * @Route("/new", name="sortie_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortie = new Sortie();
         $sortie->setOrganisateur($this->getUser());
@@ -86,6 +86,14 @@ class SortieController extends Controller
         $formLieu = $this->createForm(LieuType::class,$lieu);
         $formVille = $this->createForm(VilleType::class,$ville);
 
+        $idVille = $request->get('ville');
+        $idLieu = $request->request->get('lieu');
+        dump($idLieu);
+        $listeLieux = $entityManager->getRepository('App:Lieu')->findBy(['ville' => $idVille]);
+        //$rue = $entityManager->getRepository('App:Lieu')->find($idVille)->getRue();
+        //$cp = $entityManager->getRepository('App:Lieu')->find($idLieu)->getVille()->getCodePostal();
+        $rue = $request->get('ville');
+        $cp = $request->get('lieu');
 
         $form->handleRequest($request);
         $formLieu->handleRequest($request);
@@ -129,7 +137,10 @@ class SortieController extends Controller
             'form' => $form->createView(),
 
             'formLieu' =>$formLieu->createView(),
-            'formVille' =>$formVille->createView()
+            'formVille' =>$formVille->createView(),
+            'listeLieux' =>$listeLieux,
+            'rue' => $rue,
+            'cp' => $cp
         ]);
     }
 
