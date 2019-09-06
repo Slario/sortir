@@ -46,4 +46,5 @@ security:
         - { path: ^/lieu, roles: ROLE_ADMIN }
         - { path: ^/inscription, roles: ROLE_ADMIN }
         - { path: ^/sortie, roles: ROLE_USER }
+        - { path: ^/, roles: ROLE_USER }
 

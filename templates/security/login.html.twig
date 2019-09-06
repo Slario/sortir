@@ -1,18 +1,28 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Accueil{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa|Play&display=swap" rel="stylesheet">
+    {{ encore_entry_link_tags('app') }}
+</head>
 
-{% block title %}Connexion !{% endblock %}
 
-{% block body %}
+<body>
+
     <div class="container">
         <form method="post" class="text-center">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
-            <h2 >Connexion</h2>
+            <h2>Connexion</h2>
             <div class="form-group ">
                 <label for="inputEmail" class="">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="" required autofocus>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                       placeholder="" required autofocus>
             </div>
             <div class="form-group ">
                 <label for="inputPassword" class="">Mot de passe</label>
@@ -20,15 +30,19 @@
             </div>
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}">
-                <button class="bouton d-inline-block" type="submit">
-                    Connexion
-                </button>
-                <div class="checkbox mb-3 souvenir">
-                    <label>
-                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
-                    </label>
-                </div>
-                <a href="#">Mot de passe oublié ?</a>
+            <button class="bouton d-inline-block" type="submit">
+                Connexion
+            </button>
+            <div class="checkbox mb-3 souvenir">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                </label>
+            </div>
+            <a href="#">Mot de passe oublié ?</a>
         </form>
     </div>
-{% endblock %}
+
+</body>
+
+{{ encore_entry_script_tags('app') }}
+</html>
