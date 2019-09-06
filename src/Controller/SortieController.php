@@ -148,7 +148,8 @@ class SortieController extends Controller
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
             'lieu' => $lieu,
-            'site' => $site
+            'site' => $site,
+            'placesRestantes' => $this->nombreDePlacesRestantes($sortie)
         ]);
     }
 
@@ -280,6 +281,10 @@ class SortieController extends Controller
             return true;
         }
         return false;
+    }
+
+    private function nombreDePlacesRestantes(Sortie $sortie) {
+       return $sortie->getNbInscriptionsMax() - $sortie->getnbInscriptions();
     }
 
 

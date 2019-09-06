@@ -21,10 +21,18 @@
             <div class=".col-xs-6 .col-md-4">
                 <div class="card" style="width: fit-content">
                     <div class="card-body">
-                        <p class="card-text">{{ sortie.site}}</p>
-                        <p class="card-text"> <b>Nom du lieu : </b> {{ sortie.lieu.nomLieu }}</p>
-                        <p class="card-text"><b>Adresse : </b> {{ sortie.lieu.rue }} à {{ sortie.lieu.ville}}</p>
-                        <p class="card-text"><b>Date de l'évènement : </b> {{ sortie.dateDebut | 'none', 'none', 'fr', 'Europe/Paris', EEEE}}</p>
+                        <p class="card-text">{{ sortie.site }}</p>
+                        <p class="card-text"><b>Nom du lieu : </b> {{ sortie.lieu.nomLieu }}</p>
+                        <p class="card-text"><b>Adresse : </b> {{ sortie.lieu.rue }} à {{ sortie.lieu.ville }}</p>
+                        <p class="card-text"><b>Date de l'évènement
+                                : </b> {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'EEEE d MMMM y') }}
+                            à {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'k:mm') }}
+                        </p>
+                        <p class="card-text"><b> Durée : </b> {{ sortie.duree }} minutes</p>
+                        <p class="card-text"><b>Date de clôture des inscriptions
+                                :</b> {{ sortie.dateCloture| localizeddate('none', 'none', 'fr', 'Europe/Paris', 'EEEE d MMMM y') }}  à {{ sortie.dateCloture | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'k:mm') }}
+                        </p>
+                        <p class="card-text"><b>Nombre de places restantes :</b> {{ placesRestantes }}</p>
                     </div>
 
                 </div>
@@ -32,6 +40,31 @@
 
         </div>
 
+        <br>
+        <br>
+
+
+        {% for inscrip in sortie.inscriptions %}
+            <p>Participant.e.s :</p>
+
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action"
+                   href="{{ path('user_show', {'id': inscrip.participant.id}) }}">
+                    {% if inscrip.participant.img != null %}
+                        <img src="{{ asset('uploads/photos') }}{{ inscrip.participant.img }}"
+                             class="card-img-top avatarParticipant" alt="avatar">
+                    {% endif %}
+                    {{ inscrip.participant.pseudo }}
+                    {{ inscrip.participant.nom }}
+                    {{ inscrip.participant.prenom }}
+                </a>
+
+            </div>
+
+
+        {% else %}
+            Aucun.e participant.e.s.
+        {% endfor %}
     </div>
 
 {% endblock %}
