@@ -3,6 +3,7 @@
 body {
     background-color: #16a085;
     font-family: 'Comfortaa', cursive;
+    margin-bottom: 80px;
 }
 
 button a {
@@ -234,7 +235,7 @@ button {
 
 .formSearch {
 
-    background-color: #f6b93b;
+    background-color: #e55039;
     padding-bottom: 0.05%;
     padding-left: 0.5%;
     border-radius: 20px;
@@ -250,6 +251,42 @@ button {
 
     margin-top: 0.2%;
     margin-bottom: 1%;
+}
+
+
+.alert-success{
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.uneSortie{
+    background-color: white;
+    border-radius: 20px;
+    margin: 1%;
+    padding: 2%;
+}
+
+h4{
+
+    margin-bottom: 10%;
+    margin-top: 5%;
+    border: solid 2px;
+    border-radius: 20px;
+
+}
+
+.btnNewSortie{
+
+    margin-top: 2%;
+
+}
+
+.more_space>.col-12{
+
+    margin-top: 3%;
+
 }
 
 

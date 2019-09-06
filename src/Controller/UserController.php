@@ -107,4 +107,21 @@ class UserController extends Controller
         $listeUsers = $entityManager->getRepository('App:User')->getUserByMotCle($recherche);
         return $this->render("user/index.html.twig", ["listeUsers" => $listeUsers, "rechercher" => $rechercher]);
     }
+
+    /**
+     * @Route("/admin/", name="user_make_admin", methods={"GET"})
+     */
+    /*
+    public function admin(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $user = $this->getUser();
+        $roles = $this->getUser()->getRoles();
+        $roles[] = 'ROLE_ADMIN';
+        $user->setRoles($roles);
+        $entityManager->persist($user);
+$entityManager->flush();
+        return $this->redirectToRoute('sortie_index');
+    }*/
+
 }

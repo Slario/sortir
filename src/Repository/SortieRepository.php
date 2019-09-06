@@ -73,14 +73,15 @@ class SortieRepository extends ServiceEntityRepository
             return null;
 
         } else if ($site || $nom || $dateMin || $dateMax) {
-
+            dump($collecResultQuery);
             $collecAReturn = new ArrayCollection();
             foreach ($notSubed as $ns) {
                 if ($collecResultQuery->contains($ns)) {
                     $collecAReturn->add($ns);
                 }
-                return $collecAReturn;
             }
+                return $collecAReturn;
+
         } else if (in_array('userSubscribed', $checkbox) || in_array('userIsOrga', $checkbox)
             || in_array('sortiesFinies', $checkbox)) {
 
@@ -118,12 +119,11 @@ class SortieRepository extends ServiceEntityRepository
                 }
             }
 
-
             if ($inscris === false) {
                 $sortiesARecup->add($sortie);
             }
         }
-
+        dump($sortiesARecup);
         return $sortiesARecup;
 
     }
