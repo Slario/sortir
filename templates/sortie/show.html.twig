@@ -3,89 +3,88 @@
 {% block title %}Sortie{% endblock %}
 
 {% block body %}
-<h1>Sortie</h1>
-<div class="form-group ">
-    <div class="row">
-        <div class="col-6">
+    <br>
+    <br>
+    <br>
 
-            Nom de la sortie
-            {{ sortie.nom }}
+    <div class="container-fluid ">
+        <div class="row no-gutters col-xs-4">
+            <div class="col-xs-12 col-md-8">
+                <div class="card" style="width: fit-content">
+                    <div class="card-body">
+                        <h4 class="card-title"><b>{{ sortie.nom }}</b></h4>
+                        <p class="card-text">{{ sortie.descriptionInfos }}</p>
+                    </div>
+                </div>
+            </div>
 
-            Date et heure de la sortie
-            {{ sortie.dateDebut ? sortie.dateDebut|date('Y-m-d H:i:s') : '' }}
 
-            Date limite de l'inscription
-            {{ sortie.dateCloture ? sortie.dateCloture|date('Y-m-d H:i:s') : '' }}
 
-            Nombre de places
-            {{ sortie.nbInscriptionsMax }}
 
-            Durée
-            {{ sortie.duree }}
+            <div class=".col-xs-6 .col-md-4">
+                <div class="card" style="width: fit-content">
+                    <div class="card-body">
+                        <p class="card-text">{{ sortie.site }}</p>
+                        <p class="card-text"><b>Nom du lieu : </b> {{ sortie.lieu.nomLieu }}</p>
+                        <p class="card-text"><b>Adresse : </b> {{ sortie.lieu.rue }} à {{ sortie.lieu.ville }}</p>
+                        <p class="card-text"><b>Date de l'évènement
+                                : </b> {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'EEEE d MMMM y') }}
+                            à {{ sortie.dateDebut | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'k:mm') }}
+                        </p>
+                        <p class="card-text"><b> Durée : </b> {{ sortie.duree }} minutes</p>
+                        <p class="card-text"><b>Date de clôture des inscriptions
+                                :</b> {{ sortie.dateCloture| localizeddate('none', 'none', 'fr', 'Europe/Paris', 'EEEE d MMMM y') }}  à {{ sortie.dateCloture | localizeddate('none', 'none', 'fr', 'Europe/Paris', 'k:mm') }}
+                        </p>
+                        <p class="card-text"><b>Nombre de places restantes :</b> {{ placesRestantes }}</p>
+                    </div>
 
-            Description et infos
-            {{ sortie.descriptionInfos }}
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                {% if app.user == sortie.organisateur %}
+                    {% if sortie.etat == 'OUV' or sortie.etat == 'CRE' %}
+                        <a  class="btn btn-primary" href="{{ path('sortie_edit', {'id': sortie.id}) }}">Modifier</a>
+                        {#<a href="{{ path('sortie_annuler', {'id': sortie.id}) }}">Annuler</a>  méthode ctrller à définir#}
+                    {% endif %}
+                    {% if sortie.etat == 'CRE' %}
+                        {#<a href="{{ path('sortie_publier', {'id': sortie.id}) }}">Publier</a>  méthode ctrller à définir#}
+                    {% endif %}
+                {% elseif not sortie.estInscris(app.user) and sortie.nbInscriptions < sortie.nbInscriptionsMax and sortie.etat == 'OUV' %}
+                    <a class="btn btn-primary" href="{{ path('sortie_add_participant', {'id': sortie.id}) }}">S'inscrire</a>
+                {% elseif sortie.estInscris(app.user) and sortie.etat == 'OUV' %}
+                    <a class="btn btn-primary" href="{{ path('sortie_remove_participant', {'id': sortie.id}) }}">Se désinscrire</a>
+                {% endif %}
+
+            </div>
+
         </div>
-        <div class="col-6">
-            Ville Organisatrice
-            {{ sortie.site.nom }}
 
-            Lieu
-            {{ sortie.lieu.nomLieu }}
-
-            Rue
-            {{ sortie.lieu.rue }}
-
-            Code Postal
-            {{ sortie.lieu.ville.codePostal }}
-
-            Latitude
-            {{ sortie.lieu.latitude }}
-
-            Longitude
-            {{ sortie.lieu.longitude }}
-        </div>
-
-    </div>
-</div>
-
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-        </tr>
-        </thead>
+        <br>
+        <br>
 
 
         {% for inscrip in sortie.inscriptions %}
+            <p>Participant.e.s :</p>
 
-            <tr>
-                <td>
-                    <img class="avatarParticipant" alt="avatar"  src="{{ asset('uploads/photos/') }}{{ inscrip.participant.img }}">
-                </td>
-                <td>{{ inscrip.participant.pseudo }}</td>
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action"
+                   href="{{ path('user_show', {'id': inscrip.participant.id}) }}">
+                    {% if inscrip.participant.img != null %}
+                        <img src="{{ asset('uploads/photos') }}{{ inscrip.participant.img }}"
+                             class="card-img-top avatarParticipant" alt="avatar">
+                    {% endif %}
+                    {{ inscrip.participant.pseudo }}
+                    {{ inscrip.participant.nom }}
+                    {{ inscrip.participant.prenom }}
+                </a>
 
-                <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
-            </tr>
-            <tr>
-                <td>{{ inscrip.participant.pseudo }}</td>
-                <td>{{ inscrip.participant.nom }} {{ inscrip.participant.prenom }}</td>
-
-                <td><a href="{{ path('user_show', {'id': inscrip.participant.id}) }}">
-                        {{ inscrip.participant.nom }}
-                        {{ inscrip.participant.prenom }}</a></td>
-
-            </tr>
-
+            </div>
 
 
         {% else %}
-            Aucun participants.
+            Aucun.e participant.e.s.
         {% endfor %}
-    </table>
+    </div>
 
-</div>
 {% endblock %}

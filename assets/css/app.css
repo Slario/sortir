@@ -1,118 +1,141 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-body{
+body {
     background-color: #16a085;
     font-family: 'Comfortaa', cursive;
     margin-bottom: 80px;
 }
-button a{
+
+button a {
     text-decoration: none !important;
     color: white;
 }
-button a:hover{
+
+button a:hover {
     color: white !important;
 }
 
-h1{
+h1 {
     text-align: center !important;
     padding-bottom: 3%;
     padding-top: 2%;
 }
-h2{
+
+h2 {
     color: white;
     text-align: center !important;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 /* ------------------ Header ------------------ */
-#containerNav{
+#containerNav {
     background-color: #353b48;
     font-family: 'Play', sans-serif;
 }
-.navbar-dark{
+
+.navbar-dark {
     background-color: #353b48;
 }
-.table-dark{
+
+.table-dark {
     margin-top: 20px;
 }
-#logo img{
+
+#logo img {
     width: 40px;
     color: #16a085;
 }
-#logo img:hover{
+
+#logo img:hover {
     -webkit-animation: animLogo 0.3s linear;
 }
-#logo{
+
+#logo {
     color: #16a085;
     font-size: 1.3em;
 }
-.nav-link-color{
+
+.nav-link-color {
     color: #ffffffff !important;
     transition: color 0.3s;
 }
-.nav-link-color:hover{
+
+.nav-link-color:hover {
     color: #16a085 !important;
 }
-.utilisateur{
+
+.utilisateur {
     position: absolute;
     right: 15px;
 }
-.avatarPetit{
+
+.avatarPetit {
     width: 40px;
     height: 40px;
     opacity: 0.5;
     border-radius: 50px;
 }
-.avatarParticipant{
+
+.avatarParticipant {
     width: 40px;
     height: 40px;
     border-radius: 50px;
 }
-.logout{
+
+.logout {
     width: 20px;
     opacity: 0.7;
 }
-.utilisateur a{
+
+.utilisateur a {
     display: inline;
 }
-.utilisateur:hover{
+
+.utilisateur:hover {
     opacity: 1;
 }
 
 @-webkit-keyframes animLogo {
-    from{
+    from {
         -webkit-transform: rotate(0deg);
     }
-    to{
+    to {
         -webkit-transform: rotate(360deg);
     }
 }
 
 /* ------------------ Main ------------------ */
-.form-control-lg{
+.form-control-lg {
 }
-#imgUpload{
+
+#imgUpload {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#profil{
+
+#profil {
     background-color: white;
     border-radius: 10px;
     padding: 20px;
     text-align: center;
 }
-#profil button{
+
+#profil button {
     margin-top: 50px;
 }
-#avatar{
+
+#avatar {
     width: 150px;
     margin-bottom: 30px;
 }
-.recherche{
+
+.recherche {
     width: 35px;
     height: 35px;
 }
+
 .boutonPlus {
     color: white;
     text-align: center;
@@ -125,9 +148,11 @@ h2{
     border-radius: 50px;
     transition: background-color 0.5s;
 }
+
 .boutonPlus img:hover {
     -webkit-animation: animPlus 0.3s linear !important;
 }
+
 .bouton {
     display: inline-block;
     font-weight: 400;
@@ -143,34 +168,41 @@ h2{
     transition: background-color 0.5s;
     margin-top: 50px;
 }
-.bouton a{
+
+.bouton a {
     display: inline-block;
 }
-.bouton:hover{
-    color:white;
+
+.bouton:hover {
+    color: white;
     background-color: #353b48;
-    text-decoration:none
+    text-decoration: none
 }
-button{
+
+button {
     border: none !important;
 }
-.labelProfil{
+
+.labelProfil {
     background-color: #353b48;
     padding: 5px;
     color: white;
 }
-.gauche{
+
+.gauche {
     text-align: right;
 }
-.droit{
+
+.droit {
     text-align: left;
 }
-.plus{
+
+.plus {
     width: 15px;
 }
 
-#sortie_dateDebut_date, #sortie_dateDebut_time,#sortie_dateCloture_date,#sortie_dateCloture_time, #sortie_search_dateMin_date, #sortie_search_dateMin_time,
-#sortie_search_dateMax_date, #sortie_search_dateMax_time{
+#sortie_dateDebut_date, #sortie_dateDebut_time, #sortie_dateCloture_date, #sortie_dateCloture_time, #sortie_search_dateMin_date, #sortie_search_dateMin_time,
+#sortie_search_dateMax_date, #sortie_search_dateMax_time {
     height: calc(1.5em + 0.75rem + 2px);
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -183,24 +215,25 @@ button{
     border-radius: 0.25rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.table-dark{
+
+.table-dark {
     border-radius: 20px;
 }
 
 @-webkit-keyframes animPlus {
-    from{
+    from {
         -webkit-transform: rotate(0deg);
     }
-    to{
+    to {
         -webkit-transform: rotate(360deg);
     }
 }
 
-.tableCustom{
+.tableCustom {
     margin-top: 1%;
 }
 
-.formSearch{
+.formSearch {
 
     background-color: #e55039;
     padding-bottom: 0.05%;
@@ -210,15 +243,16 @@ button{
 
 }
 
-#sortie_search_rechercher{
+#sortie_search_rechercher {
     margin-top: 2px;
 }
 
-.btnNew{
+.btnNew {
 
     margin-top: 0.2%;
     margin-bottom: 1%;
 }
+
 
 .alert-success{
     text-align: center;
